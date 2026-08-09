@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>音乐 · Ivy</title>
-  <meta name="description" content="Ivy 的私人音乐播放页，分享一些喜欢的曲子。" />
+  <title>学习笔记 · Ivy</title>
+  <meta name="description" content="Ivy 的学习笔记合集：课程总结、公式推导、读书方法与思维框架。" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="icon" href="assets/img/favicon.jpg" />
 </head>
@@ -13,7 +13,7 @@
     <button class="menu-btn" data-menu-open aria-label="打开菜单">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
-    <span class="topbar-title">音乐</span>
+    <span class="topbar-title">学习笔记</span>
   </header>
 
   <aside class="sidebar">
@@ -36,22 +36,13 @@
         <span>全部文章</span>
       </a>
       <span class="nav-label">分类</span>
-      <a class="nav-link" href="posts.html?q=笔记">
+      <a class="nav-link active" href="notes.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
         <span>学习笔记</span>
       </a>
       <a class="nav-link" href="resources.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg>
         <span>资源分享</span>
-      </a>
-      <span class="nav-label">更多</span>
-      <a class="nav-link" href="tags.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 11 3.8a2 2 0 0 0-1.4-.6H4a2 2 0 0 0-2 2v5.6c0 .5.2 1 .6 1.4l9.6 9.6a2 2 0 0 0 2.8 0l5.6-5.6a2 2 0 0 0 0-2.8Z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg>
-        <span>标签</span>
-      </a>
-      <a class="nav-link" href="music.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-        <span>音乐</span>
       </a>
       <a class="nav-link" href="about.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
@@ -72,27 +63,17 @@
 
   <main class="main">
     <div class="page-head reveal">
-      <div class="eyebrow">Music</div>
-      <h1>音乐</h1>
-      <p>写代码 / 复习时循环的一些曲子，偶尔更新。</p>
+      <div class="eyebrow">Notes</div>
+      <h1>学习笔记</h1>
+      <p>课程总结、公式推导、读书方法与思维框架，把知识真正内化为自己的。</p>
     </div>
 
-    <div class="music-card reveal">
-      <div class="mc-art">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-      </div>
-      <h2>欢迎来到我的音乐角</h2>
-      <p>这里会放一些适合学习的轻音乐 / Lo-fi。音频文件太大，走网盘或流媒体平台，下面是个示例播放器。</p>
-      <audio controls preload="metadata">
-        <source src="assets/audio/demo.mp3" type="audio/mpeg" />
-        你的浏览器不支持音频播放。
-      </audio>
+    <div class="search-box reveal" style="margin-bottom:18px;max-width:520px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="notes-search" type="text" placeholder="搜索笔记标题或摘要…" aria-label="搜索笔记" />
     </div>
 
-    <div class="music-tip reveal">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-      <span>想添加歌曲？把音频文件放到 <code>assets/audio/</code>，然后在 <code>music.html</code> 里复制上面的 <code>&lt;audio&gt;</code> 块改一下路径即可。参考 <a href="posts/writing-guide.html">写作教程</a>。</span>
-    </div>
+    <div class="grid" id="notes-list"></div>
 
     <footer class="foot">
       <p>© 2026 Ivy</p>

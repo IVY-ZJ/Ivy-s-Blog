@@ -40,23 +40,13 @@
       </a>
 
       <span class="nav-label">分类</span>
-      <a class="nav-link" href="posts.html?q=笔记">
+      <a class="nav-link" href="notes.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
         <span>学习笔记</span>
       </a>
       <a class="nav-link" href="resources.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg>
         <span>资源分享</span>
-      </a>
-
-      <span class="nav-label">更多</span>
-      <a class="nav-link" href="tags.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 11 3.8a2 2 0 0 0-1.4-.6H4a2 2 0 0 0-2 2v5.6c0 .5.2 1 .6 1.4l9.6 9.6a2 2 0 0 0 2.8 0l5.6-5.6a2 2 0 0 0 0-2.8Z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg>
-        <span>标签</span>
-      </a>
-      <a class="nav-link" href="music.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-        <span>音乐</span>
       </a>
       <a class="nav-link" href="about.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
@@ -65,10 +55,6 @@
     </nav>
 
     <div class="sidebar-foot">
-      <div class="search-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        <input id="nav-search" type="text" placeholder="搜索文章…" aria-label="搜索" />
-      </div>
       <button class="theme-toggle" data-theme-toggle>
         <span>外观</span>
         <span class="switch"></span>
@@ -87,60 +73,115 @@
 
   <!-- Main -->
   <main class="main">
-    <section class="hero reveal">
-      <div class="aurora">
-        <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
-      </div>
-      <div class="sheen"></div>
-      <span class="hero-badge">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M3 12h18"/></svg>
-        持续更新中
-      </span>
-      <h1>把学到的东西，<br/>认真地记下来。</h1>
-      <p>这里是我的学习笔记与资源收藏站。课程资料、读书心得、工具方法，凡是值得沉淀的，都会慢慢放进来。</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="posts.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          开始阅读
-        </a>
-        <a class="btn btn-ghost" href="resources.html">资源合集</a>
-      </div>
-    </section>
+    <div class="home-layout">
+      <div class="home-main">
+        <section class="hero reveal">
+          <div class="aurora">
+            <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+          </div>
+          <div class="sheen"></div>
+          <span class="hero-badge">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M3 12h18"/></svg>
+            持续更新中
+          </span>
+          <h1>把学到的东西，<br/>认真地记下来。</h1>
+          <p>这里是我的学习笔记与资源收藏站。课程资料、读书心得、工具方法，凡是值得沉淀的，都会慢慢放进来。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="posts.html">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              开始阅读
+            </a>
+            <a class="btn btn-ghost" href="resources.html">资源合集</a>
+          </div>
+        </section>
 
-    <div class="section-head reveal">
-      <h2>最新文章</h2>
-      <a href="posts.html">查看全部 →</a>
-    </div>
-    <div class="grid" id="recent-posts"></div>
+        <div class="section-head reveal">
+          <h2>最新文章</h2>
+          <a href="posts.html">查看全部 →</a>
+        </div>
+        <div class="grid" id="recent-posts"></div>
 
-    <div class="section-head reveal">
-      <h2>按分类浏览</h2>
-    </div>
-    <div class="grid">
-      <a class="card reveal" data-cat="笔记" href="posts.html?q=笔记">
-        <span class="accent-bar"></span>
-        <div class="card-cover"></div>
-        <span class="card-cat">笔记</span>
-        <h3><span>学习笔记</span></h3>
-        <p>课程总结、公式推导、读书方法与思维框架，把知识真正内化为自己的。</p>
-        <div class="card-meta"><span>系统整理</span><span class="dot"></span><span>持续积累</span></div>
-      </a>
-      <a class="card reveal" data-cat="资源" href="resources.html">
-        <span class="accent-bar"></span>
-        <div class="card-cover"></div>
-        <span class="card-cat">资源</span>
-        <h3><span>资源分享</span></h3>
-        <p>课件、试卷、软件工具与网盘资料，直接可用，省去四处搜寻的时间。</p>
-        <div class="card-meta"><span>即拿即用</span><span class="dot"></span><span>网盘直链</span></div>
-      </a>
-      <a class="card reveal" data-cat="随笔" href="posts/writing-guide.html">
-        <span class="accent-bar"></span>
-        <div class="card-cover"></div>
-        <span class="card-cat">指南</span>
-        <h3><span>写作与发布教程</span></h3>
-        <p>发文章、加链接、传图片和音频、分享大文件、推到 GitHub —— 手把手。</p>
-        <div class="card-meta"><span>新手友好</span><span class="dot"></span><span>8 月更新</span></div>
-      </a>
+        <div class="section-head reveal">
+          <h2>按分类浏览</h2>
+        </div>
+        <div class="grid">
+          <a class="card reveal" data-cat="笔记" href="notes.html">
+            <span class="accent-bar"></span>
+            <div class="card-cover"></div>
+            <span class="card-cat">笔记</span>
+            <h3><span>学习笔记</span></h3>
+            <p>课程总结、公式推导、读书方法与思维框架，把知识真正内化为自己的。</p>
+            <div class="card-meta"><span>系统整理</span><span class="dot"></span><span>持续积累</span></div>
+          </a>
+          <a class="card reveal" data-cat="资源" href="resources.html">
+            <span class="accent-bar"></span>
+            <div class="card-cover"></div>
+            <span class="card-cat">资源</span>
+            <h3><span>资源分享</span></h3>
+            <p>课件、试卷、软件工具与网盘资料，直接可用，省去四处搜寻的时间。</p>
+            <div class="card-meta"><span>即拿即用</span><span class="dot"></span><span>网盘直链</span></div>
+          </a>
+          <a class="card reveal" data-cat="随笔" href="posts/writing-guide.html">
+            <span class="accent-bar"></span>
+            <div class="card-cover"></div>
+            <span class="card-cat">指南</span>
+            <h3><span>写作与发布教程</span></h3>
+            <p>发文章、加链接、传图片和音频、分享大文件、推到 GitHub —— 手把手。</p>
+            <div class="card-meta"><span>新手友好</span><span class="dot"></span><span>8 月更新</span></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right rail: tags & music widgets (no sidebar outline) -->
+      <aside class="right-rail">
+        <div class="rail-card reveal" data-delay="2">
+          <div class="rail-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 11 3.8a2 2 0 0 0-1.4-.6H4a2 2 0 0 0-2 2v5.6c0 .5.2 1 .6 1.4l9.6 9.6a2 2 0 0 0 2.8 0l5.6-5.6a2 2 0 0 0 0-2.8Z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg>
+            标签
+          </div>
+          <div class="rail-tags" id="rail-tags"></div>
+        </div>
+
+        <div class="rail-card reveal" data-delay="4">
+          <div class="rail-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            音乐
+          </div>
+          <div class="rail-music">
+            <a class="rail-music-item" href="music.html">
+              <span class="rm-ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              </span>
+              <span class="rm-copy">
+                <span class="rm-title">学习 Lo-fi 歌单</span>
+                <span class="rm-sub">写代码 / 复习时循环</span>
+              </span>
+              <span class="rm-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <a class="rail-music-item" href="music.html">
+              <span class="rm-ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              </span>
+              <span class="rm-copy">
+                <span class="rm-title">纯音乐收藏</span>
+                <span class="rm-sub">钢琴 / 氛围 / 电影原声</span>
+              </span>
+              <span class="rm-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="rail-card reveal" data-delay="6">
+          <div class="rail-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+            关于
+          </div>
+          <div class="rail-about">
+            <p>我是 Ivy，一名爱折腾的电院学生。这里是我的数字笔记本，记录课程笔记、资源收藏和一些思考。</p>
+            <a href="about.html">了解更多 →</a>
+          </div>
+        </div>
+      </aside>
     </div>
 
     <footer class="foot">

@@ -143,6 +143,33 @@
     }
   }
 
+  /* ---------- Notes page (only 笔记 posts) ---------- */
+  var notesList = document.getElementById("notes-list");
+  if (notesList && window.POSTS) {
+    var notesAll = window.POSTS.filter(function (p) { return p.cat === "笔记"; });
+    var notesState = { q: "" };
+    function renderNotes() {
+      var q = notesState.q.trim().toLowerCase();
+      var list = notesAll.filter(function (p) {
+        return !q || (p.title + p.excerpt + (p.tags || []).join(" ")).toLowerCase().indexOf(q) > -1;
+      });
+      if (!list.length) {
+        notesList.innerHTML =
+          '<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>' +
+          "<div>没有找到匹配的笔记</div></div>";
+        return;
+      }
+      notesList.innerHTML = list.map(cardHTML).join("");
+    }
+    renderNotes();
+    var notesSearch = document.getElementById("notes-search");
+    if (notesSearch) {
+      notesSearch.addEventListener("input", function () {
+        notesState.q = notesSearch.value; renderNotes();
+      });
+    }
+  }
+
   /* ---------- Search box in sidebar (home archive jump) ---------- */
   var navSearch = document.getElementById("nav-search");
   if (navSearch) {
@@ -160,6 +187,23 @@
       var as = document.getElementById("archive-search");
       if (as) { as.value = q; state.q = q; render(); }
     }
+  }
+
+  /* ---------- Home right-rail tags widget ---------- */
+  var railTags = document.getElementById("rail-tags");
+  if (railTags && window.POSTS) {
+    var rtMap = {};
+    window.POSTS.forEach(function (p) {
+      (p.tags || []).forEach(function (t) {
+        if (!rtMap[t]) rtMap[t] = 0;
+        rtMap[t]++;
+      });
+    });
+    var rtNames = Object.keys(rtMap).sort().slice(0, 12);
+    railTags.innerHTML = rtNames.map(function (t) {
+      return '<a class="rail-tag" href="tags.html" title="' + t + '">' + t +
+        '<span class="rt-count">' + rtMap[t] + "</span></a>";
+    }).join("");
   }
 
   /* ---------- Entrance reveals ---------- */
