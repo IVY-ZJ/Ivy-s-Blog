@@ -70,10 +70,11 @@
     var d = new Date(iso + "T00:00:00");
     return d.getFullYear() + " 年 " + (d.getMonth() + 1) + " 月 " + d.getDate() + " 日";
   }
-  function cardHTML(p) {
+  function cardHTML(p, i) {
     var cover = p.cover || "";
+    var delay = (i || 0) % 6 * 80;
     return (
-      '<a class="card reveal" data-cat="' + p.cat + '" href="posts/' + p.slug + '.html">' +
+      '<a class="card reveal" data-delay="' + delay + '" data-cat="' + p.cat + '" href="posts/' + p.slug + '.html">' +
         '<span class="accent-bar"></span>' +
         (cover ? '<div class="card-cover"><div class="cover-art" style="background-image:url(' + cover + ')"></div></div>' : "") +
         '<span class="card-cat">' + p.cat + "</span>" +
@@ -85,12 +86,15 @@
     );
   }
   function byDateDesc(a, b) { return a.date < b.date ? 1 : -1; }
+  // Helper: render a list of posts with sequential reveal delays
+  function renderCards(list) {
+    return list.map(function (p, i) { return cardHTML(p, i); }).join("");
+  }
 
   /* ---------- Render recent on home ---------- */
   var recent = document.getElementById("recent-posts");
   if (recent && window.POSTS) {
-    recent.innerHTML = window.POSTS.slice().sort(byDateDesc)
-      .slice(0, 4).map(cardHTML).join("");
+    recent.innerHTML = renderCards(window.POSTS.slice().sort(byDateDesc).slice(0, 4));
     initReveals();
   }
 
@@ -123,7 +127,7 @@
           "<div>没有找到匹配的内容</div></div>";
         return;
       }
-      archive.innerHTML = list.map(cardHTML).join("");
+      archive.innerHTML = renderCards(list);
       initReveals();
     }
     render();
@@ -161,7 +165,7 @@
           "<div>没有找到匹配的笔记</div></div>";
         return;
       }
-      notesList.innerHTML = list.map(cardHTML).join("");
+      notesList.innerHTML = renderCards(list);
       initReveals();
     }
     renderNotes();
@@ -204,7 +208,7 @@
     });
     var rtNames = Object.keys(rtMap).sort().slice(0, 12);
     railTags.innerHTML = rtNames.map(function (t) {
-      return '<a class="rail-tag" href="tags.html" title="' + t + '">' + t +
+      return '<a class="rail-tag" href="tags.html?tag=' + encodeURIComponent(t) + '" title="' + t + '">' + t +
         '<span class="rt-count">' + rtMap[t] + "</span></a>";
     }).join("");
   }
@@ -336,27 +340,42 @@
         return;
       }
       var posts = tagMap[activeTag].slice().sort(byDateDesc);
-      tagList.innerHTML = posts.map(function (p) {
-        return '<a class="tag-post reveal" href="posts/' + p.slug + '.html">' +
+      tagList.innerHTML = posts.map(function (p, i) {
+        return '<a class="tag-post reveal" data-delay="' + (i % 6) * 60 + '" href="posts/' + p.slug + '.html">' +
           '<span class="tp-cat">' + p.cat + "</span>" +
           '<span class="tp-title">' + p.title + "</span>" +
           '<span class="tp-date">' + p.date.replace(/-/g, "/") + "</span></a>";
       }).join("");
       initReveals();
     }
+    function selectTag(name, scroll) {
+      if (!tagMap[name]) return;
+      tagCloud.querySelectorAll(".tag").forEach(function (x) {
+        x.classList.toggle("active", x.getAttribute("data-tag") === name);
+      });
+      activeTag = name;
+      renderTagList();
+      if (scroll) {
+        var el = tagList;
+        setTimeout(function () {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 60);
+      }
+    }
 
     tagCloud.addEventListener("click", function (e) {
       var t = e.target.closest(".tag"); if (!t) return;
-      tagCloud.querySelectorAll(".tag").forEach(function (x) { x.classList.remove("active"); });
       var name = t.getAttribute("data-tag");
-      if (activeTag === name) {
-        activeTag = null;
-      } else {
-        t.classList.add("active");
-        activeTag = name;
-      }
-      renderTagList();
+      if (activeTag === name) { activeTag = null; }
+      selectTag(name);
     });
+
+    // Support ?tag=xxx from the home right-rail tags
+    var urlParams = new URLSearchParams(location.search);
+    var urlTag = urlParams.get("tag");
+    if (urlTag && tagMap[urlTag]) {
+      selectTag(urlTag, true);
+    }
   }
 
   /* ---------- Resource search filter (resources page) ---------- */
