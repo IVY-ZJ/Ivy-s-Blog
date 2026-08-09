@@ -546,6 +546,19 @@ body.resizing {
   border-radius: var(--radius-lg);
   padding: 20px;
 }
+/* Dark mode: soften the rail-card outline so it melts into the wallpaper */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .rail-card {
+    border-color: rgba(255, 255, 255, 0.07);
+    background: rgba(28, 28, 30, 0.42);
+    box-shadow: var(--glass-highlight), 0 12px 36px rgba(0, 0, 0, 0.35);
+  }
+}
+:root[data-theme="dark"] .rail-card {
+  border-color: rgba(255, 255, 255, 0.07);
+  background: rgba(28, 28, 30, 0.42);
+  box-shadow: var(--glass-highlight), 0 12px 36px rgba(0, 0, 0, 0.35);
+}
 .rail-card .rail-title {
   display: flex;
   align-items: center;
@@ -719,6 +732,23 @@ body.resizing {
   background: linear-gradient(90deg, var(--system-red), #ff9500);
   box-shadow: 0 0 8px rgba(255, 45, 85, 0.5);
   transition: width 0.2s linear;
+}
+/* Dark mode: darker progress bar that fits the dark aesthetic */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .np-bar {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  :root:not([data-theme="light"]) .np-bar-fill {
+    background: linear-gradient(90deg, #c0183c, #e05c18);
+    box-shadow: 0 0 8px rgba(255, 45, 85, 0.35);
+  }
+}
+:root[data-theme="dark"] .np-bar {
+  background: rgba(255, 255, 255, 0.12);
+}
+:root[data-theme="dark"] .np-bar-fill {
+  background: linear-gradient(90deg, #c0183c, #e05c18);
+  box-shadow: 0 0 8px rgba(255, 45, 85, 0.35);
 }
 .np-actions { width: 100%; }
 .np-open {

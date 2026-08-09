@@ -73,7 +73,7 @@
   function cardHTML(p) {
     var cover = p.cover || "";
     return (
-      '<a class="card" data-cat="' + p.cat + '" href="posts/' + p.slug + '.html">' +
+      '<a class="card reveal" data-cat="' + p.cat + '" href="posts/' + p.slug + '.html">' +
         '<span class="accent-bar"></span>' +
         (cover ? '<div class="card-cover"><div class="cover-art" style="background-image:url(' + cover + ')"></div></div>' : "") +
         '<span class="card-cat">' + p.cat + "</span>" +
@@ -91,6 +91,7 @@
   if (recent && window.POSTS) {
     recent.innerHTML = window.POSTS.slice().sort(byDateDesc)
       .slice(0, 4).map(cardHTML).join("");
+    initReveals();
   }
 
   /* ---------- Archive list + filter + search ---------- */
@@ -123,6 +124,7 @@
         return;
       }
       archive.innerHTML = list.map(cardHTML).join("");
+      initReveals();
     }
     render();
 
@@ -160,6 +162,7 @@
         return;
       }
       notesList.innerHTML = list.map(cardHTML).join("");
+      initReveals();
     }
     renderNotes();
     var notesSearch = document.getElementById("notes-search");
@@ -206,25 +209,33 @@
     }).join("");
   }
 
-  /* ---------- Entrance reveals ---------- */
-  var reveals = document.querySelectorAll(".reveal");
-  if ("IntersectionObserver" in window && reveals.length) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en, i) {
-        if (en.isIntersecting) {
-          var el = en.target;
-          setTimeout(function () { el.classList.add("in"); }, (el.dataset.delay || 0) * 1);
-          io.unobserve(el);
-        }
+  /* ---------- Entrance reveals (reusable, call after dynamic renders) ---------- */
+  var revealIO = null;
+  function initReveals() {
+    var els = document.querySelectorAll(".reveal:not(.in)");
+    if (!els.length) return;
+    if ("IntersectionObserver" in window) {
+      if (!revealIO) {
+        revealIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) {
+              var el = en.target;
+              setTimeout(function () { el.classList.add("in"); }, (el.dataset.delay || 0) * 1);
+              revealIO.unobserve(el);
+            }
+          });
+        }, { threshold: 0.08 });
+      }
+      // Assign stagger delays to any elements that don't have one yet
+      els.forEach(function (el, i) {
+        if (!el.dataset.delay) el.dataset.delay = (i % 6) * 60;
+        revealIO.observe(el);
       });
-    }, { threshold: 0.08 });
-    reveals.forEach(function (el, i) {
-      el.dataset.delay = (i % 6) * 60;
-      io.observe(el);
-    });
-  } else {
-    reveals.forEach(function (el) { el.classList.add("in"); });
+    } else {
+      els.forEach(function (el) { el.classList.add("in"); });
+    }
   }
+  initReveals();
 
   /* ---------- Scroll progress bar ---------- */
   var bar = document.createElement("div");
@@ -326,11 +337,12 @@
       }
       var posts = tagMap[activeTag].slice().sort(byDateDesc);
       tagList.innerHTML = posts.map(function (p) {
-        return '<a class="tag-post" href="posts/' + p.slug + '.html">' +
+        return '<a class="tag-post reveal" href="posts/' + p.slug + '.html">' +
           '<span class="tp-cat">' + p.cat + "</span>" +
           '<span class="tp-title">' + p.title + "</span>" +
           '<span class="tp-date">' + p.date.replace(/-/g, "/") + "</span></a>";
       }).join("");
+      initReveals();
     }
 
     tagCloud.addEventListener("click", function (e) {
