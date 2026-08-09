@@ -509,12 +509,14 @@ body.resizing {
   margin: 0 auto;
   padding: calc(env(safe-area-inset-top) + 56px) 32px 96px;
   min-height: 100vh;
+  width: 100%;
+  transition: max-width 0.25s var(--ease-ios);
 }
 
-/* Home page: main column + right rail (tags & music widgets) */
+/* Home page: main column (right rail is fixed, separate from flow) */
 .home-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px;
+  grid-template-columns: 1fr;
   gap: 40px;
   align-items: start;
 }
@@ -736,8 +738,20 @@ body.resizing {
 
 /* Right rail responsive: collapse to a section below content on smaller screens */
 @media (min-width: 1281px) {
-  /* Make room for the fixed right rail on the home page */
-  .main { padding-right: calc(260px + 40px); }
+  /* Home page: main fills between left sidebar and the fixed right rail */
+  body:has(.right-rail) .main {
+    max-width: none;
+    margin: 0;
+    padding-left: 40px;
+    padding-right: calc(260px + 40px);
+  }
+  /* Other pages: main fills between left sidebar and viewport right edge */
+  body:not(:has(.right-rail)) .main {
+    max-width: none;
+    margin: 0;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
 }
 @media (max-width: 1280px) {
   .home-layout { grid-template-columns: 1fr; }
@@ -830,11 +844,11 @@ body.resizing {
 }
 .section-head a { font-size: 15px; font-weight: 600; }
 
-/* Cards grid */
+/* Cards grid — auto-fit so it tiles as many columns as width allows */
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
 }
 .card {
   background: var(--card-bg);

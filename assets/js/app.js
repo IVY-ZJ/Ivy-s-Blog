@@ -416,7 +416,7 @@
   var sidebarEl = document.querySelector(".sidebar");
   var resizeHandle = document.querySelector("[data-sidebar-resize]");
   if (sidebarEl && resizeHandle && window.matchMedia("(min-width: 981px)").matches) {
-    var MIN_W = 250, MAX_W = 300;
+    var MIN_W = 235, MAX_W = 290;
     function applySidebarWidth(w) {
       root.style.setProperty("--sidebar-w", w + "px");
       try { localStorage.setItem("Ivy-sidebar-w", w); } catch (e) {}
