@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>电路分析核心公式速查与直觉推导 · Ivy</title>
+  <meta name="description" content="把电路分析里最容易混淆的公式，用一张图串起来。" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23007AFF'/><text x='50' y='68' font-size='56' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'>I</text></svg>" />
+</head>
+<body>
+  <header class="topbar">
+    <button class="menu-btn" data-menu-open aria-label="打开菜单">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <span class="topbar-title">学习笔记</span>
+  </header>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="avatar">I</div>
+      <div class="brand-text"><span class="brand-name">Ivy</span><span class="brand-sub">学习笔记 · 资源分享</span></div>
+    </div>
+    <nav class="nav">
+      <span class="nav-label">浏览</span>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg><span>首页</span>
+      </a>
+      <a class="nav-link" href="../posts.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 13h7M9 17h7"/></svg><span>全部文章</span>
+      </a>
+      <span class="nav-label">分类</span>
+      <a class="nav-link" href="../posts.html?q=笔记">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>学习笔记</span>
+      </a>
+      <a class="nav-link" href="../resources.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg><span>资源分享</span>
+      </a>
+      <a class="nav-link" href="../about.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>关于我</span>
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="nav-search" type="text" placeholder="搜索文章…" aria-label="搜索" />
+      </div>
+      <button class="theme-toggle" data-theme-toggle><span>外观</span><span class="switch"></span></button>
+      <div class="social-row">
+        <a href="https://github.com/IVY-ZJ" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a>
+        <a href="mailto:ivyzj2000@gmail.com" aria-label="邮箱"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg></a>
+        <a href="../posts.html" aria-label="RSS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 5a15 15 0 0 1 15 15"/><circle cx="5" cy="19" r="1.5" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+  </aside>
+  <div class="scrim" data-menu-close></div>
+
+  <main class="main">
+    <article class="article reveal" data-cat="笔记">
+      <div class="article-cover"><span class="cover-cap">学习笔记</span></div>
+      <div class="article-head">
+        <a class="article-cat" href="../posts.html?q=笔记">学习笔记</a>
+        <h1>电路分析核心公式速查与直觉推导</h1>
+        <div class="article-meta">
+          <span class="author-row"><span class="mini-avatar">I</span> IVY</span>
+          <span>·</span><span>2026 年 7 月 28 日</span><span>·</span><span>12 分钟</span>
+        </div>
+      </div>
+      <hr class="divider" />
+
+      <div class="prose">
+        <p>电路分析里公式不少，但真正「会考又会用」的其实就几条。这篇把它们按「怎么来的」串一遍，下次遇到题，先想物理意义，再搬公式。</p>
+
+        <h2>节点电压法</h2>
+        <p>选一个参考节点（通常接地），其余节点电压为未知量，对每个独立节点列 KCL：</p>
+        <pre><code>∑ (V_i - V_neighbor) / R = I_source</code></pre>
+        <p>本质是「流入 = 流出」。节点越多越省事，比回路法列的方程少。</p>
+
+        <h2>网孔电流法</h2>
+        <p>每个网孔设一个假想电流，沿网孔列 KVL：</p>
+        <pre><code>R_11·I_1 + R_12·I_2 = V_1
+R_21·I_1 + R_22·I_2 = V_2</code></pre>
+        <blockquote>记忆口诀：对角线是自己网孔的总电阻，非对角线是公共电阻（带负号）。</blockquote>
+
+        <h2>戴维南 / 诺顿等效</h2>
+        <p>任意线性二端网络，对外只看两件事：</p>
+        <ul>
+          <li><strong>开路电压</strong> <code>V_th</code>：把负载断开测的电压。</li>
+          <li><strong>等效电阻</strong> <code>R_th</code>：独立源置零后，从端口看进去的电阻。</li>
+        </ul>
+        <p>诺顿是戴维南的电流源版本：<code>I_n = V_th / R_th</code>，并联 <code>R_th</code>。</p>
+
+        <h3>一个常错点</h3>
+        <p>求 <code>R_th</code> 时，<strong>受控源不能简单地当导线/开路处理</strong>。要么用外加电源法，要么用 <code>V_th / I_sc</code>。我当初在这丢了不少分。</p>
+
+        <div class="callout">
+          <div class="callout-icon green">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <div class="callout-body">
+            <strong>做题顺序建议</strong>
+            先判断用节点法还是网孔法（节点多 → 节点法）；含受控源时务必保留控制量；最后用戴维南简化负载部分。
+          </div>
+        </div>
+
+        <h2>小抄一张图</h2>
+        <p>把上面四条画成一张思维导图贴在书桌前，考前扫一眼就够了。完整版我放在<a href="../resources.html">资源分享</a>的网盘里。</p>
+      </div>
+
+      <hr class="divider" />
+      <p style="color:var(--label-secondary);font-size:15px;">
+        <a href="../posts.html">← 返回全部文章</a> · 下一篇：<a href="study-resources-pack.html">大二秋冬课程资料合集</a>
+      </p>
+    </article>
+
+    <footer class="foot">
+      <p>© 2026 Ivy</p>
+    </footer>
+  </main>
+
+  <script src="../assets/js/posts-data.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

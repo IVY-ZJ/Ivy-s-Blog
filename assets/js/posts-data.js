@@ -1,0 +1,49 @@
+/* Post metadata — single source of truth for lists & archive.
+   Adding a post: create posts/<slug>.html, then add an entry here. */
+window.POSTS = [
+  {
+    slug: "effective-note-taking",
+    title: "如何建立一套真正用得上的笔记系统",
+    cat: "笔记",
+    date: "2026-08-06",
+    readTime: "8 分钟",
+    cover: "assets/img/cover-notes.svg",
+    excerpt: "从收集、整理到回顾，聊聊我用 Obsidian 打磨三年的笔记方法论，以及如何避免「收藏即学会」的陷阱。",
+  },
+  {
+    slug: "circuit-analysis-notes",
+    title: "电路分析核心公式速查与直觉推导",
+    cat: "笔记",
+    date: "2026-07-28",
+    readTime: "12 分钟",
+    cover: "assets/img/cover-notes.svg",
+    excerpt: "节点法、网孔法、戴维南等效……把大二电路里最容易混淆的十几条公式，用一张图串起来。",
+  },
+  {
+    slug: "study-resources-pack",
+    title: "大二秋冬课程资料合集（网盘分享）",
+    cat: "资源",
+    date: "2026-07-15",
+    readTime: "5 分钟",
+    cover: "assets/img/cover-resources.svg",
+    excerpt: "电路、信号与系统、电磁场等课程的课件、习题与往年试卷，整理打包，不定期更新。",
+  },
+  {
+    slug: "why-i-write",
+    title: "为什么我坚持公开写学习笔记",
+    cat: "随笔",
+    date: "2026-06-30",
+    readTime: "6 分钟",
+    cover: "assets/img/cover-essay.svg",
+    excerpt: "写作是最好的思考训练。记录一下我搭建这个博客的初衷，以及它对我的改变。",
+  },
+  {
+    slug: "writing-guide",
+    title: "写博客、推链接、传图片的完整教程",
+    cat: "指南",
+    date: "2026-08-09",
+    readTime: "10 分钟",
+    cover: "assets/img/cover-resources.svg",
+    excerpt: "从复制模板、改标题到登记元数据、git 推送，手把手教你在这套博客里发文章、加链接、传图片和音频。",
+  },
+];

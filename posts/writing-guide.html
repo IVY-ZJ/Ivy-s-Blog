@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>写博客、推链接、传图片的完整教程 · Ivy</title>
+  <meta name="description" content="手把手教你在这套博客里发文章、加链接、传图片/音频/大文件，并推送到 GitHub Pages。" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23007AFF'/><text x='50' y='68' font-size='56' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'>I</text></svg>" />
+</head>
+<body>
+  <header class="topbar">
+    <button class="menu-btn" data-menu-open aria-label="打开菜单">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <span class="topbar-title">写作指南</span>
+  </header>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="avatar">I</div>
+      <div class="brand-text"><span class="brand-name">Ivy</span><span class="brand-sub">学习笔记 · 资源分享</span></div>
+    </div>
+    <nav class="nav">
+      <span class="nav-label">浏览</span>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg><span>首页</span>
+      </a>
+      <a class="nav-link" href="../posts.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 13h7M9 17h7"/></svg><span>全部文章</span>
+      </a>
+      <span class="nav-label">分类</span>
+      <a class="nav-link" href="../posts.html?q=笔记">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>学习笔记</span>
+      </a>
+      <a class="nav-link" href="../resources.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg><span>资源分享</span>
+      </a>
+      <a class="nav-link" href="../about.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>关于我</span>
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="nav-search" type="text" placeholder="搜索文章…" aria-label="搜索" />
+      </div>
+      <button class="theme-toggle" data-theme-toggle><span>外观</span><span class="switch"></span></button>
+      <div class="social-row">
+        <a href="https://github.com/IVY-ZJ" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a>
+        <a href="mailto:ivyzj2000@gmail.com" aria-label="邮箱"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg></a>
+        <a href="../posts.html" aria-label="RSS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 5a15 15 0 0 1 15 15"/><circle cx="5" cy="19" r="1.5" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+  </aside>
+  <div class="scrim" data-menu-close></div>
+
+  <main class="main">
+    <article class="article reveal" data-cat="指南">
+      <div class="article-cover"><span class="cover-cap">写作指南</span></div>
+      <div class="article-head">
+        <a class="article-cat" href="../posts.html?q=指南">指南</a>
+        <h1>写博客、推链接、传图片的完整教程</h1>
+        <div class="article-meta">
+          <span class="author-row"><span class="mini-avatar">I</span> IVY</span>
+          <span>·</span><span>2026 年 8 月 9 日</span><span>·</span><span>10 分钟</span>
+        </div>
+      </div>
+      <hr class="divider" />
+
+      <div class="prose">
+        <p>这篇教程写给未来的自己，也写给任何想在这套博客上发内容的同学。全部是纯静态操作：<strong>复制一个文件 → 粘贴内容 → 登记元数据 → git 推送</strong>。看完你就会发文章、加链接、传图片和音频了。</p>
+
+        <div class="callout">
+          <div class="callout-icon blue">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+          </div>
+          <div class="callout-body">
+            <strong>你需要的东西</strong>
+            一个 Git 客户端（或命令行），和一个能编辑 HTML 的文本编辑器（VS Code / Sublime / 记事本都行）。
+          </div>
+        </div>
+
+        <h2>一、怎么发一篇新文章</h2>
+        <p>这套博客里，一篇文章 = 一个 HTML 文件 + 一行元数据。</p>
+
+        <h3>第 1 步：复制模板</h3>
+        <p>打开 <code>posts/</code> 文件夹，把任意一篇文章（推荐 <code>why-i-write.html</code>）复制一份，重命名为你的文章名，例如：</p>
+        <pre><code>posts/我的第一篇笔记.html</code></pre>
+        <p>也可以直接用英文短横线命名，更稳（避免中文文件名在某些服务器上出问题）：</p>
+        <pre><code>posts/my-first-note.html</code></pre>
+
+        <h3>第 2 步：改标题和头部信息</h3>
+        <p>在文件顶部，把 <code>&lt;title&gt;</code>、<code>&lt;meta name="description"&gt;</code> 改成你的标题和一句话简介。</p>
+        <p>在正文区的 <code>.article-head</code> 里，修改：</p>
+        <pre><code>&lt;h1&gt;文章标题&lt;/h1&gt;
+&lt;div class="article-meta"&gt;
+  &lt;span&gt;2026 年 8 月 9 日&lt;/span&gt;
+  &lt;span&gt;·&lt;/span&gt;&lt;span&gt;8 分钟&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+
+        <h3>第 3 步：写正文</h3>
+        <p>所有正文放在 <code>&lt;div class="prose"&gt; ... &lt;/div&gt;</code> 里面，用最普通的 HTML 写就行：</p>
+        <pre><code>&lt;p&gt;段落文字……&lt;/p&gt;
+&lt;h2&gt;二级标题&lt;/h2&gt;
+&lt;h3&gt;三级标题&lt;/h3&gt;
+&lt;ul&gt;&lt;li&gt;列表项 1&lt;/li&gt;&lt;li&gt;列表项 2&lt;/li&gt;&lt;/ul&gt;
+&lt;blockquote&gt;引用别人的话&lt;/blockquote&gt;
+&lt;strong&gt;加粗&lt;/strong&gt; 和 &lt;code&gt;行内代码&lt;/code&gt;</code></pre>
+
+        <h3>第 4 步：登记元数据</h3>
+        <p>打开 <code>assets/js/posts-data.js</code>，在数组里加一条（注意是英文逗号分隔，前一条末尾要有逗号）：</p>
+        <pre><code>{
+  slug: "my-first-note",        // 和文件名一致（不含 .html）
+  title: "文章标题",
+  cat: "笔记",                  // 笔记 / 资源 / 随笔 / 指南
+  date: "2026-08-09",          // 格式 YYYY-MM-DD
+  readTime: "8 分钟",
+  excerpt: "一句话摘要，会显示在卡片上。",
+}</code></pre>
+        <p>保存后，首页「最新文章」和「全部文章」页面会自动出现这篇，不用改别的文件。</p>
+
+        <h2>二、怎么加链接</h2>
+        <p>普通链接写在正文里，用 <code>&lt;a&gt;</code> 标签：</p>
+        <pre><code>这是 &lt;a href="https://github.com/IVY-ZJ" target="_blank" rel="noopener"&gt;我的 GitHub&lt;/a&gt;。</code></pre>
+        <p><code>target="_blank"</code> 表示在新标签页打开，<code>rel="noopener"</code> 是安全写法，建议每次都带上。</p>
+
+        <h3>资源卡片（网盘 / 下载链接）</h3>
+        <p>如果想在「资源分享」页面放一个醒目的下载按钮，打开 <code>resources.html</code>，复制下面这段再改：</p>
+        <pre><code>&lt;div class="resource reveal"&gt;
+  &lt;div class="res-icon" style="background:linear-gradient(145deg,#007AFF,#5856D6)"&gt;
+    &lt;svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"&gt;&lt;path d="M4 5h16v14H4z"/&gt;&lt;path d="M8 9h8M8 13h6"/&gt;&lt;/svg&gt;
+  &lt;/div&gt;
+  &lt;div class="res-body"&gt;
+    &lt;div class="res-title"&gt;资料名称&lt;/div&gt;
+    &lt;div class="res-desc"&gt;一句话说明&lt;/div&gt;
+    &lt;span class="res-code"&gt;提取码：xxxx&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;a class="btn btn-ios res-action" href="https://pan.baidu.com" target="_blank" rel="noopener"&gt;前往网盘&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+
+        <h2>三、怎么传图片</h2>
+        <p>第一步，把图片放进 <code>assets/img/</code> 文件夹（或者新建一个 <code>posts/images/</code> 目录）。第二步，在正文里用 <code>&lt;img&gt;</code> 引用它：</p>
+        <pre><code>&lt;img src="../assets/img/你的图片.png" alt="图片说明" /&gt;</code></pre>
+        <p>小提示：</p>
+        <ul>
+          <li>路径里的 <code>../</code> 是因为文章在 <code>posts/</code> 子目录里，要先「往上跳一层」才能到 <code>assets/</code>。</li>
+          <li>图片建议先压缩到 200KB 以内（可用 <a href="https://tinypng.com" target="_blank" rel="noopener">TinyPNG</a>），否则网页会变慢。</li>
+          <li>尽量用英文文件名，比如 <code>circuit-diagram.png</code>。</li>
+        </ul>
+        <p>想让图片作为文章顶部的横幅？那是在 HTML 的 <code>&lt;div class="article-cover"&gt;</code> 里通过 CSS 背景图设置的，见 <code>assets/css/style.css</code> 里 <code>.article-cover</code> 相关规则。</p>
+
+        <h2>四、怎么放音频 / 视频</h2>
+        <p>直接把音频文件放进 <code>assets/audio/</code>（新建），然后在正文里写：</p>
+        <pre><code>&lt;audio controls preload="metadata"&gt;
+  &lt;source src="../assets/audio/你的音频.mp3" type="audio/mpeg" /&gt;
+  你的浏览器不支持音频播放。
+&lt;/audio&gt;</code></pre>
+        <p>视频同理（把 <code>assets/video/</code> 目录建好）：</p>
+        <pre><code>&lt;video controls preload="metadata"&gt;
+  &lt;source src="../assets/video/你的视频.mp4" type="video/mp4" /&gt;
+  你的浏览器不支持视频播放。
+&lt;/video&gt;</code></pre>
+        <p>需要图文并茂的「媒体块」样式（带标题的音频/图片卡片），可以复制下面这种写法：</p>
+        <pre><code>&lt;div class="media"&gt;
+  &lt;div class="media-block"&gt;
+    &lt;div class="media-cap"&gt;音频标题&lt;/div&gt;
+    &lt;audio controls preload="metadata"&gt;
+      &lt;source src="../assets/audio/xxx.mp3" type="audio/mpeg" /&gt;
+    &lt;/audio&gt;
+    &lt;p class="media-desc"&gt;这段音频讲了什么……&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <h2>五、怎么分享大文件</h2>
+        <p>GitHub 对单个文件有 100MB 硬限制（超过 50MB 还会警告），所以<strong>大文件一律走网盘</strong>：上传到百度网盘 / 阿里云盘，把链接贴进文章（见上文「加链接」部分），再把提取码写在旁边。本站的「资源分享」页面就是这样做的。</p>
+        <p>小文件（&lt; 50MB）可以直接放仓库里下载，用文件行样式：</p>
+        <pre><code>&lt;div class="file-row"&gt;
+  &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"&gt;&lt;path d="M14 3v5h5"/&gt;&lt;path d="M6 3h9l4 4v14H6z"/&gt;&lt;/svg&gt;
+  &lt;span class="file-name"&gt;大二物理笔记.pdf&lt;/span&gt;
+  &lt;span class="file-size"&gt;12 MB&lt;/span&gt;
+  &lt;a class="file-link" href="../assets/files/物理笔记.pdf" download&gt;下载&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+        <p>把文件放到 <code>assets/files/</code>，href 指向它即可。<code>download</code> 属性让浏览器直接下载而不是打开。</p>
+
+        <h2>六、怎么推到 GitHub（发布上线）</h2>
+        <p>本地改完，打开终端，在博客文件夹里依次执行：</p>
+        <pre><code>cd 你的博客文件夹
+git add -A
+git commit -m "写点东西"
+git push</code></pre>
+        <p>如果这是第一次配置仓库（只做一次）：</p>
+        <pre><code>git init
+git add -A
+git commit -m "init"
+git branch -M main
+git remote add origin https://github.com/IVY-ZJ/Ivy-s-Blog.git
+git push -u origin main</code></pre>
+        <p>推送后，GitHub Pages 会自动重新构建，等一两分钟，访问：</p>
+        <pre><code>https://ivy-zj.github.io/Ivy-s-Blog/</code></pre>
+        <p>想直接在线编辑？也可以打开仓库网页，找到 <code>posts/</code> 下的文章点「编辑」图标，改完点 Commit changes —— 更简单，但记得每篇文章都要同步改一下 <code>assets/js/posts-data.js</code> 里的登记信息。</p>
+
+        <div class="callout">
+          <div class="callout-icon green">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <div class="callout-body">
+            <strong>最后一句</strong>
+            写完先 <code>python -m http.server 8000</code> 在本地预览一遍，再推上去，就不会出现「线上打不开」的尴尬了。
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+      <p style="color:var(--label-secondary);font-size:15px;">
+        <a href="../posts.html">← 返回全部文章</a>
+      </p>
+    </article>
+
+    <footer class="foot">
+      <p>© 2026 Ivy</p>
+    </footer>
+  </main>
+
+  <script src="../assets/js/posts-data.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

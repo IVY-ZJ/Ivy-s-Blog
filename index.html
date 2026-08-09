@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ivy · 学习笔记与资源分享</title>
+  <meta name="description" content="一个分享学习笔记、课程资料与各类资源的小站，采用 iOS 设计语言打造。" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23007AFF'/><text x='50' y='68' font-size='56' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'>I</text></svg>" />
+</head>
+<body>
+  <!-- Mobile top bar -->
+  <header class="topbar">
+    <button class="menu-btn" data-menu-open aria-label="打开菜单">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <span class="topbar-title">Ivy</span>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="avatar">I</div>
+      <div class="brand-text">
+        <span class="brand-name">Ivy</span>
+        <span class="brand-sub">学习笔记 · 资源分享</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <span class="nav-label">浏览</span>
+      <a class="nav-link" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg>
+        <span>首页</span>
+      </a>
+      <a class="nav-link" href="posts.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 13h7M9 17h7"/></svg>
+        <span>全部文章</span>
+      </a>
+
+      <span class="nav-label">分类</span>
+      <a class="nav-link" href="posts.html?q=笔记">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+        <span>学习笔记</span>
+      </a>
+      <a class="nav-link" href="resources.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg>
+        <span>资源分享</span>
+      </a>
+      <a class="nav-link" href="about.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+        <span>关于我</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="nav-search" type="text" placeholder="搜索文章…" aria-label="搜索" />
+      </div>
+      <button class="theme-toggle" data-theme-toggle>
+        <span>外观</span>
+        <span class="switch"></span>
+      </button>
+      <div class="social-row">
+        <a href="https://github.com/IVY-ZJ" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+        </a>
+        <a href="mailto:ivyzj2000@gmail.com" aria-label="邮箱">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg>
+        </a>
+        <a href="posts.html" aria-label="RSS">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 5a15 15 0 0 1 15 15"/><circle cx="5" cy="19" r="1.5" fill="currentColor"/></svg>
+        </a>
+      </div>
+    </div>
+  </aside>
+  <div class="scrim" data-menu-close></div>
+
+  <!-- Main -->
+  <main class="main">
+    <section class="hero reveal">
+      <div class="aurora">
+        <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+      </div>
+      <div class="sheen"></div>
+      <span class="hero-badge">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M3 12h18"/></svg>
+        持续更新中
+      </span>
+      <h1>把学到的东西，<br/>认真地记下来。</h1>
+      <p>这里是我的学习笔记与资源收藏站。课程资料、读书心得、工具方法，凡是值得沉淀的，都会慢慢放进来。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="posts.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          开始阅读
+        </a>
+        <a class="btn btn-ghost" href="resources.html">资源合集</a>
+      </div>
+    </section>
+
+    <div class="section-head reveal">
+      <h2>最新文章</h2>
+      <a href="posts.html">查看全部 →</a>
+    </div>
+    <div class="grid" id="recent-posts"></div>
+
+    <div class="section-head reveal">
+      <h2>按分类浏览</h2>
+    </div>
+    <div class="grid">
+      <a class="card reveal" data-cat="笔记" href="posts.html?q=笔记">
+        <span class="accent-bar"></span>
+        <div class="card-cover"></div>
+        <span class="card-cat">笔记</span>
+        <h3><span>学习笔记</span></h3>
+        <p>课程总结、公式推导、读书方法与思维框架，把知识真正内化为自己的。</p>
+        <div class="card-meta"><span>系统整理</span><span class="dot"></span><span>持续积累</span></div>
+      </a>
+      <a class="card reveal" data-cat="资源" href="resources.html">
+        <span class="accent-bar"></span>
+        <div class="card-cover"></div>
+        <span class="card-cat">资源</span>
+        <h3><span>资源分享</span></h3>
+        <p>课件、试卷、软件工具与网盘资料，直接可用，省去四处搜寻的时间。</p>
+        <div class="card-meta"><span>即拿即用</span><span class="dot"></span><span>网盘直链</span></div>
+      </a>
+      <a class="card reveal" data-cat="随笔" href="posts/writing-guide.html">
+        <span class="accent-bar"></span>
+        <div class="card-cover"></div>
+        <span class="card-cat">指南</span>
+        <h3><span>写作与发布教程</span></h3>
+        <p>发文章、加链接、传图片和音频、分享大文件、推到 GitHub —— 手把手。</p>
+        <div class="card-meta"><span>新手友好</span><span class="dot"></span><span>8 月更新</span></div>
+      </a>
+    </div>
+
+    <footer class="foot">
+      <p>© 2026 Ivy </p>
+      <p><a href="about.html">关于</a> · <a href="https://github.com/IVY-ZJ" target="_blank" rel="noopener">GitHub</a></p>
+    </footer>
+  </main>
+
+  <script src="assets/js/posts-data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

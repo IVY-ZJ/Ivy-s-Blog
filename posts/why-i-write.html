@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>为什么我坚持公开写学习笔记 · Ivy</title>
+  <meta name="description" content="记录搭建这个博客的初衷，以及写作对我的改变。" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23007AFF'/><text x='50' y='68' font-size='56' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'>I</text></svg>" />
+</head>
+<body>
+  <header class="topbar">
+    <button class="menu-btn" data-menu-open aria-label="打开菜单">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <span class="topbar-title">随笔</span>
+  </header>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="avatar">I</div>
+      <div class="brand-text"><span class="brand-name">Ivy</span><span class="brand-sub">学习笔记 · 资源分享</span></div>
+    </div>
+    <nav class="nav">
+      <span class="nav-label">浏览</span>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg><span>首页</span>
+      </a>
+      <a class="nav-link" href="../posts.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 13h7M9 17h7"/></svg><span>全部文章</span>
+      </a>
+      <span class="nav-label">分类</span>
+      <a class="nav-link" href="../posts.html?q=笔记">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>学习笔记</span>
+      </a>
+      <a class="nav-link" href="../resources.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg><span>资源分享</span>
+      </a>
+      <a class="nav-link" href="../about.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>关于我</span>
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="nav-search" type="text" placeholder="搜索文章…" aria-label="搜索" />
+      </div>
+      <button class="theme-toggle" data-theme-toggle><span>外观</span><span class="switch"></span></button>
+      <div class="social-row">
+        <a href="https://github.com/IVY-ZJ" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a>
+        <a href="mailto:ivyzj2000@gmail.com" aria-label="邮箱"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg></a>
+        <a href="../posts.html" aria-label="RSS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 5a15 15 0 0 1 15 15"/><circle cx="5" cy="19" r="1.5" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+  </aside>
+  <div class="scrim" data-menu-close></div>
+
+  <main class="main">
+    <article class="article reveal" data-cat="随笔">
+      <div class="article-cover"><span class="cover-cap">随笔</span></div>
+      <div class="article-head">
+        <a class="article-cat" href="../posts.html?q=随笔">随笔</a>
+        <h1>为什么我坚持公开写学习笔记</h1>
+        <div class="article-meta">
+          <span class="author-row"><span class="mini-avatar">I</span> IVY</span>
+          <span>·</span><span>2026 年 6 月 30 日</span><span>·</span><span>6 分钟</span>
+        </div>
+      </div>
+      <hr class="divider" />
+
+      <div class="prose">
+        <p>很久以前我就发现，自己「看懂了」和「能讲清楚」之间，隔着一条很大的沟。公开写作，是我填这条沟最笨也最有效的方法。</p>
+
+        <h2>写作是最好的思考训练</h2>
+        <p>当你要把一个概念写给别人看，就得先把它在脑子里理清楚。含糊的地方藏不住，写两句话就卡住了 —— 那恰恰是你没真懂的地方。</p>
+        <blockquote>不理解，就写不出来；写出来，才算真的理解。</blockquote>
+
+        <h2>公开带来复利</h2>
+        <p>笔记写给自己，是一次性消费；写成文章发出去，就会被搜索、被引用、被纠错。别人的一句反馈，常常比我闷头复习一周更有用。</p>
+
+        <h2>这个博客的初衷</h2>
+        <p>搭这个站，不为流量，只为给自己一个「认真对待知识」的仪式感：</p>
+        <ul>
+          <li>把课程笔记从草稿变成可分享的文章；</li>
+          <li>把零散资源沉淀成一份可信的清单；</li>
+          <li>顺便，也许能帮到某个和我一样在摸索的人。</li>
+        </ul>
+
+        <p>如果你也准备写点什么，我的建议只有一句：<strong>别等「准备好了」再开始</strong>。先写下第一篇，剩下的会慢慢长出来。</p>
+      </div>
+
+      <hr class="divider" />
+      <p style="color:var(--label-secondary);font-size:15px;">
+        <a href="../posts.html">← 返回全部文章</a> · 上一篇：<a href="effective-note-taking.html">如何建立一套真正用得上的笔记系统</a>
+      </p>
+    </article>
+
+    <footer class="foot">
+      <p>© 2026 Ivy</p>
+    </footer>
+  </main>
+
+  <script src="../assets/js/posts-data.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>
