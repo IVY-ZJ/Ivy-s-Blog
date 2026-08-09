@@ -360,6 +360,58 @@
     });
   }
 
+  /* ---------- NetEase-style mini player (home right rail) ---------- */
+  var npPlayer = document.getElementById("np-player");
+  if (npPlayer) {
+    var npPlayBtn = document.getElementById("np-play");
+    var npBarFill = document.getElementById("np-bar-fill");
+    var npTimeCur = document.getElementById("np-time-cur");
+    var npTimeTotal = document.getElementById("np-time-total");
+    var npPlaying = false;
+    var npDur = 210; // seconds (3:30 demo)
+    var npCur = 0;
+    var npTick = null;
+
+    function npFmt(s) {
+      s = Math.max(0, Math.floor(s));
+      var m = Math.floor(s / 60), r = s % 60;
+      return m + ":" + (r < 10 ? "0" : "") + r;
+    }
+    npTimeTotal.textContent = npFmt(npDur);
+
+    function npStart() {
+      npPlaying = true;
+      npPlayer.classList.add("playing");
+      npPlayBtn.setAttribute("aria-label", "暂停");
+      npTick = setInterval(function () {
+        npCur += 0.5;
+        if (npCur >= npDur) { npCur = 0; }
+        npBarFill.style.width = (npCur / npDur * 100) + "%";
+        npTimeCur.textContent = npFmt(npCur);
+      }, 500);
+    }
+    function npStop() {
+      npPlaying = false;
+      npPlayer.classList.remove("playing");
+      npPlayBtn.setAttribute("aria-label", "播放");
+      clearInterval(npTick);
+    }
+    npPlayBtn.addEventListener("click", function () {
+      if (npPlaying) npStop(); else npStart();
+    });
+    // Click on progress bar to seek
+    var npBar = document.querySelector(".np-bar");
+    if (npBar) {
+      npBar.addEventListener("click", function (e) {
+        var r = npBar.getBoundingClientRect();
+        var ratio = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+        npCur = ratio * npDur;
+        npBarFill.style.width = (ratio * 100) + "%";
+        npTimeCur.textContent = npFmt(npCur);
+      });
+    }
+  }
+
   /* ---------- Sidebar drag-to-resize (desktop only) ---------- */
   var sidebarEl = document.querySelector(".sidebar");
   var resizeHandle = document.querySelector("[data-sidebar-resize]");
