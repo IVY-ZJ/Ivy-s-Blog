@@ -254,4 +254,118 @@
       });
     });
   }
+
+  /* ---------- Tags page (tag cloud + filter) ---------- */
+  var tagCloud = document.getElementById("tag-cloud");
+  var tagList = document.getElementById("tag-list");
+  if (tagCloud && tagList && window.POSTS) {
+    // Build tag -> posts map
+    var tagMap = {};
+    window.POSTS.forEach(function (p) {
+      (p.tags || []).forEach(function (t) {
+        if (!tagMap[t]) tagMap[t] = [];
+        tagMap[t].push(p);
+      });
+    });
+    var tagNames = Object.keys(tagMap).sort();
+
+    tagCloud.innerHTML = tagNames.map(function (t) {
+      return '<button class="tag" data-tag="' + t + '">' + t +
+        '<span class="tag-count">' + tagMap[t].length + "</span></button>";
+    }).join("");
+
+    var activeTag = null;
+    function renderTagList() {
+      if (!activeTag) {
+        tagList.innerHTML = "";
+        return;
+      }
+      var posts = tagMap[activeTag].slice().sort(byDateDesc);
+      tagList.innerHTML = posts.map(function (p) {
+        return '<a class="tag-post" href="posts/' + p.slug + '.html">' +
+          '<span class="tp-cat">' + p.cat + "</span>" +
+          '<span class="tp-title">' + p.title + "</span>" +
+          '<span class="tp-date">' + p.date.replace(/-/g, "/") + "</span></a>";
+      }).join("");
+    }
+
+    tagCloud.addEventListener("click", function (e) {
+      var t = e.target.closest(".tag"); if (!t) return;
+      tagCloud.querySelectorAll(".tag").forEach(function (x) { x.classList.remove("active"); });
+      var name = t.getAttribute("data-tag");
+      if (activeTag === name) {
+        activeTag = null;
+      } else {
+        t.classList.add("active");
+        activeTag = name;
+      }
+      renderTagList();
+    });
+  }
+
+  /* ---------- Resource search filter (resources page) ---------- */
+  var resourceSearch = document.getElementById("resource-search");
+  if (resourceSearch) {
+    var resources = Array.prototype.slice.call(document.querySelectorAll("#resource-list .resource"));
+    resourceSearch.addEventListener("input", function () {
+      var q = resourceSearch.value.trim().toLowerCase();
+      resources.forEach(function (r) {
+        var hit = !q || r.textContent.toLowerCase().indexOf(q) > -1;
+        r.style.display = hit ? "" : "none";
+      });
+    });
+  }
+
+  /* ---------- Sidebar drag-to-resize (desktop only) ---------- */
+  var sidebarEl = document.querySelector(".sidebar");
+  var resizeHandle = document.querySelector("[data-sidebar-resize]");
+  if (sidebarEl && resizeHandle && window.matchMedia("(min-width: 981px)").matches) {
+    var MIN_W = 220, MAX_W = 420;
+    function applySidebarWidth(w) {
+      root.style.setProperty("--sidebar-w", w + "px");
+      try { localStorage.setItem("Ivy-sidebar-w", w); } catch (e) {}
+    }
+    // Restore saved width
+    var savedW = null;
+    try { savedW = parseInt(localStorage.getItem("Ivy-sidebar-w"), 10); } catch (e) {}
+    if (savedW && savedW >= MIN_W && savedW <= MAX_W) applySidebarWidth(savedW);
+
+    resizeHandle.addEventListener("mousedown", function (e) {
+      e.preventDefault();
+      body.classList.add("resizing");
+      var startX = e.clientX;
+      var startW = sidebarEl.getBoundingClientRect().width;
+      function onMove(ev) {
+        var w = startW + (ev.clientX - startX);
+        w = Math.max(MIN_W, Math.min(MAX_W, w));
+        applySidebarWidth(w);
+      }
+      function onUp() {
+        body.classList.remove("resizing");
+        window.removeEventListener("mousemove", onMove);
+        window.removeEventListener("mouseup", onUp);
+      }
+      window.addEventListener("mousemove", onMove);
+      window.addEventListener("mouseup", onUp);
+    });
+    // Touch support for tablets
+    resizeHandle.addEventListener("touchstart", function (e) {
+      e.preventDefault();
+      body.classList.add("resizing");
+      var startX = e.touches[0].clientX;
+      var startW = sidebarEl.getBoundingClientRect().width;
+      function onMove(ev) {
+        var w = startW + (ev.touches[0].clientX - startX);
+        w = Math.max(MIN_W, Math.min(MAX_W, w));
+        applySidebarWidth(w);
+      }
+      function onUp() {
+        body.classList.remove("resizing");
+        window.removeEventListener("touchmove", onMove);
+        window.removeEventListener("touchend", onUp);
+      }
+      window.addEventListener("touchmove", onMove);
+      window.addEventListener("touchend", onUp);
+    });
+  }
 })();
