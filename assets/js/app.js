@@ -392,53 +392,109 @@
   }
 
   /* ---------- NetEase-style mini player (home right rail) ---------- */
+  /* Uses the same SITE_TRACKS data as music.html, so the two stay in sync. */
   var npPlayer = document.getElementById("np-player");
   if (npPlayer) {
+    var npAudio = document.getElementById("np-audio");
     var npPlayBtn = document.getElementById("np-play");
+    var npPrevBtn = document.getElementById("np-prev");
+    var npNextBtn = document.getElementById("np-next");
+    var npBar = document.getElementById("np-bar");
     var npBarFill = document.getElementById("np-bar-fill");
     var npTimeCur = document.getElementById("np-time-cur");
     var npTimeTotal = document.getElementById("np-time-total");
-    var npPlaying = false;
-    var npDur = 210; // seconds (3:30 demo)
-    var npCur = 0;
-    var npTick = null;
+    var npTrackEl = document.getElementById("np-track");
+    var npArtistEl = document.getElementById("np-artist");
+    var npListEl = document.getElementById("np-list");
+    var TRACKS = window.SITE_TRACKS || [];
+    var npIdx = -1;
 
     function npFmt(s) {
-      s = Math.max(0, Math.floor(s));
+      s = Math.max(0, Math.floor(s || 0));
       var m = Math.floor(s / 60), r = s % 60;
       return m + ":" + (r < 10 ? "0" : "") + r;
     }
-    npTimeTotal.textContent = npFmt(npDur);
 
-    function npStart() {
-      npPlaying = true;
+    // Build the synced playlist (identical to music.html)
+    TRACKS.forEach(function (t, i) {
+      var li = document.createElement("li");
+      li.className = "np-item";
+      li.setAttribute("role", "button");
+      li.setAttribute("tabindex", "0");
+      li.innerHTML = '<span class="np-item-idx">' + (i + 1) + '</span><span class="np-item-name"></span>';
+      li.querySelector(".np-item-name").textContent = t.title;
+      li.addEventListener("click", function () { npToggle(i); });
+      li.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); npToggle(i); }
+      });
+      npListEl.appendChild(li);
+    });
+
+    function npSyncActive() {
+      Array.prototype.forEach.call(npListEl.children, function (el, idx) {
+        el.classList.toggle("is-active", idx === npIdx);
+      });
+    }
+
+    function npLoad(i, autoplay) {
+      if (!TRACKS.length) return;
+      if (i < 0) i = TRACKS.length - 1;
+      if (i >= TRACKS.length) i = 0;
+      npIdx = i;
+      var t = TRACKS[i];
+      npAudio.src = t.src;
+      npTrackEl.textContent = t.title;
+      npArtistEl.textContent = "本地音频";
+      npSyncActive();
+      npTimeCur.textContent = "0:00";
+      npBarFill.style.width = "0%";
+      npTimeTotal.textContent = "0:00";
+      if (autoplay) npAudio.play().catch(function () {});
+    }
+
+    function npPlay() {
+      if (npIdx === -1) { npLoad(0, true); return; }
+      npAudio.play().catch(function () {});
+    }
+
+    function npToggle(i) {
+      if (i === npIdx) { if (npAudio.paused) npPlay(); else npAudio.pause(); }
+      else npLoad(i, true);
+    }
+
+    npPlayBtn.addEventListener("click", function () {
+      if (npIdx === -1) npPlay();
+      else if (npAudio.paused) npPlay();
+      else npAudio.pause();
+    });
+    npPrevBtn.addEventListener("click", function () { npLoad(npIdx - 1, true); });
+    npNextBtn.addEventListener("click", function () { npLoad(npIdx + 1, true); });
+
+    npAudio.addEventListener("play", function () {
       npPlayer.classList.add("playing");
       npPlayBtn.setAttribute("aria-label", "暂停");
-      npTick = setInterval(function () {
-        npCur += 0.5;
-        if (npCur >= npDur) { npCur = 0; }
-        npBarFill.style.width = (npCur / npDur * 100) + "%";
-        npTimeCur.textContent = npFmt(npCur);
-      }, 500);
-    }
-    function npStop() {
-      npPlaying = false;
+    });
+    npAudio.addEventListener("pause", function () {
       npPlayer.classList.remove("playing");
       npPlayBtn.setAttribute("aria-label", "播放");
-      clearInterval(npTick);
-    }
-    npPlayBtn.addEventListener("click", function () {
-      if (npPlaying) npStop(); else npStart();
     });
-    // Click on progress bar to seek
-    var npBar = document.querySelector(".np-bar");
+    npAudio.addEventListener("ended", function () { npLoad(npIdx + 1, true); });
+    npAudio.addEventListener("timeupdate", function () {
+      var d = npAudio.duration || 0;
+      npTimeCur.textContent = npFmt(npAudio.currentTime);
+      npTimeTotal.textContent = npFmt(d);
+      npBarFill.style.width = (d ? (npAudio.currentTime / d * 100) : 0) + "%";
+    });
+    npAudio.addEventListener("loadedmetadata", function () {
+      npTimeTotal.textContent = npFmt(npAudio.duration);
+    });
     if (npBar) {
       npBar.addEventListener("click", function (e) {
+        var d = npAudio.duration;
+        if (!d) return;
         var r = npBar.getBoundingClientRect();
         var ratio = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
-        npCur = ratio * npDur;
-        npBarFill.style.width = (ratio * 100) + "%";
-        npTimeCur.textContent = npFmt(npCur);
+        npAudio.currentTime = ratio * d;
       });
     }
   }
@@ -447,7 +503,7 @@
   var sidebarEl = document.querySelector(".sidebar");
   var resizeHandle = document.querySelector("[data-sidebar-resize]");
   if (sidebarEl && resizeHandle && window.matchMedia("(min-width: 981px)").matches) {
-    var MIN_W = 235, MAX_W = 290;
+    var MIN_W = 220, MAX_W = 270;
     function applySidebarWidth(w) {
       root.style.setProperty("--sidebar-w", w + "px");
       try { localStorage.setItem("Ivy-sidebar-w", w); } catch (e) {}
@@ -455,7 +511,7 @@
     // Restore saved width
     var savedW = null;
     try { savedW = parseInt(localStorage.getItem("Ivy-sidebar-w"), 10); } catch (e) {}
-    if (savedW && savedW >= MIN_W && savedW <= MAX_W) applySidebarWidth(savedW);
+    if (savedW && !isNaN(savedW)) applySidebarWidth(Math.max(MIN_W, Math.min(MAX_W, savedW)));
 
     resizeHandle.addEventListener("mousedown", function (e) {
       e.preventDefault();

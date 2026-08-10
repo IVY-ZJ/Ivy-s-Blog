@@ -72,22 +72,19 @@
       <p>写代码 / 复习时循环的一些曲子，偶尔更新。</p>
     </div>
 
-    <div class="music-card reveal">
-      <div class="mc-art">
+    <section class="music-player reveal" id="musicPlayer">
+      <div class="mp-art" id="mpArt" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
       </div>
-      <h2>欢迎来到我的音乐角</h2>
-      <p>这里会放一些适合学习的轻音乐 / Lo-fi。音频文件太大，走网盘或流媒体平台，下面是个示例播放器。</p>
-      <audio controls preload="metadata">
-        <source src="assets/audio/demo.mp3" type="audio/mpeg" />
-        你的浏览器不支持音频播放。
-      </audio>
-    </div>
+      <div class="mp-info">
+        <span class="mp-label">正在播放</span>
+        <h2 class="mp-title" id="mpTitle">选择一首曲子</h2>
+        <span class="mp-sub" id="mpSub">点击下方的列表开始播放</span>
+      </div>
+      <audio id="mpAudio" class="mp-audio" controls preload="metadata"></audio>
+    </section>
 
-    <div class="music-tip reveal">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-      <span>想添加歌曲？把音频文件放到 <code>assets/audio/</code>，然后在 <code>music.html</code> 里复制上面的 <code>&lt;audio&gt;</code> 块改一下路径即可。参考 <a href="posts/writing-guide.html">写作教程</a>。</span>
-    </div>
+    <ul class="playlist reveal" id="playlist" aria-label="播放列表"></ul>
 
     <footer class="foot">
       <p>© 2026 Ivy</p>
@@ -95,6 +92,75 @@
   </main>
 
   <script src="assets/js/posts-data.js"></script>
+  <script src="assets/js/tracks.js"></script>
   <script src="assets/js/app.js"></script>
+  <script>
+  (function () {
+    // 歌单来自全站唯一数据源 tracks.js，与首页右侧栏 mini 播放器保持一致。
+    var TRACKS = window.SITE_TRACKS || [];
+    var audio = document.getElementById("mpAudio");
+    var titleEl = document.getElementById("mpTitle");
+    var subEl = document.getElementById("mpSub");
+    var artEl = document.getElementById("mpArt");
+    var listEl = document.getElementById("playlist");
+    var current = -1;
+
+    TRACKS.forEach(function (t, i) {
+      var li = document.createElement("li");
+      li.className = "track";
+      li.setAttribute("role", "button");
+      li.setAttribute("tabindex", "0");
+      li.innerHTML =
+        '<span class="track-idx">' + (i + 1) + '</span>' +
+        '<span class="track-name"></span>' +
+        '<span class="track-state" aria-hidden="true">' +
+          '<svg class="ic-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>' +
+          '<svg class="ic-eq" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h2M9 7v10M14 4v16M19 9v6"/></svg>' +
+        '</span>';
+      li.querySelector(".track-name").textContent = t.title;
+      li.addEventListener("click", function () { toggle(i); });
+      li.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(i); }
+      });
+      listEl.appendChild(li);
+    });
+
+    function toggle(i) {
+      if (i === current) {
+        if (audio.paused) audio.play().catch(function(){});
+        else audio.pause();
+        return;
+      }
+      play(i);
+    }
+
+    function play(i) {
+      var t = TRACKS[i];
+      current = i;
+      audio.src = t.src;
+      titleEl.textContent = t.title;
+      subEl.textContent = "本地音频 · " + decodeURIComponent(t.src.split("/").pop());
+      audio.play().catch(function(){});
+      syncActive();
+    }
+
+    function syncActive() {
+      Array.prototype.forEach.call(listEl.children, function (el, idx) {
+        var active = idx === current;
+        el.classList.toggle("is-active", active);
+        el.classList.toggle("is-paused", active && audio.paused);
+        el.setAttribute("aria-current", active ? "true" : "false");
+      });
+    }
+
+    audio.addEventListener("play", function () { artEl.classList.add("is-spinning"); syncActive(); });
+    audio.addEventListener("pause", function () { artEl.classList.remove("is-spinning"); syncActive(); });
+    audio.addEventListener("ended", function () {
+      artEl.classList.remove("is-spinning");
+      if (current + 1 < TRACKS.length) play(current + 1);
+      else syncActive();
+    });
+  })();
+  </script>
 </body>
 </html>
