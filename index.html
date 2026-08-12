@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; connect-src 'self'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
   <title>Ivy · 学习笔记与资源分享</title>
   <meta name="description" content="一个分享学习笔记、课程资料与各类资源的小站，采用 iOS 设计语言打造。" />
   <link rel="stylesheet" href="assets/css/style.css" />
@@ -14,7 +17,7 @@
     <button class="menu-btn" data-menu-open aria-label="打开菜单">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
-    <span class="topbar-title">Ivy</span>
+    <span class="topbar-title">Ivy's Open Folio</span>
   </header>
 
   <!-- Sidebar -->
@@ -22,8 +25,7 @@
     <div class="brand">
       <div class="avatar"><img src="assets/img/avatar.jpg" alt="Ivy 头像" /></div>
       <div class="brand-text">
-        <span class="brand-name">Ivy</span>
-        <span class="brand-sub">学习笔记 · 资源分享</span>
+        <span class="brand-name">Ivy's Open Folio</span>
       </div>
     </div>
     <div class="sidebar-resize" data-sidebar-resize aria-hidden="true"></div>
@@ -109,28 +111,34 @@
         </div>
         <div class="grid">
           <a class="card reveal" data-cat="笔记" href="notes.html">
-            <span class="accent-bar"></span>
             <div class="card-cover"></div>
-            <span class="card-cat">笔记</span>
-            <h3><span>学习笔记</span></h3>
-            <p>课程总结、公式推导、读书方法与思维框架，把知识真正内化为自己的。</p>
-            <div class="card-meta"><span>系统整理</span><span class="dot"></span><span>持续积累</span></div>
+            <div class="card-body">
+              <span class="card-cat">笔记</span>
+              <div class="card-tags"><span class="pill">方法论</span><span class="pill">Obsidian</span><span class="pill">效率</span><span class="pill">公式</span></div>
+              <h3><span>学习笔记</span></h3>
+              <p>课程总结、公式推导、读书方法与思维框架，把知识真正内化为自己的。</p>
+              <div class="card-meta"><span>系统整理</span><span class="dot"></span><span>持续积累</span></div>
+            </div>
           </a>
           <a class="card reveal" data-cat="资源" href="resources.html">
-            <span class="accent-bar"></span>
             <div class="card-cover"></div>
-            <span class="card-cat">资源</span>
-            <h3><span>资源分享</span></h3>
-            <p>课件、试卷、软件工具与网盘资料，直接可用，省去四处搜寻的时间。</p>
-            <div class="card-meta"><span>即拿即用</span><span class="dot"></span><span>网盘直链</span></div>
+            <div class="card-body">
+              <span class="card-cat">资源</span>
+              <div class="card-tags"><span class="pill">课件</span><span class="pill">试卷</span><span class="pill">网盘</span><span class="pill">工具</span></div>
+              <h3><span>资源分享</span></h3>
+              <p>课件、试卷、软件工具与网盘资料，直接可用，省去四处搜寻的时间。</p>
+              <div class="card-meta"><span>即拿即用</span><span class="dot"></span><span>网盘直链</span></div>
+            </div>
           </a>
           <a class="card reveal" data-cat="随笔" href="posts/writing-guide.html">
-            <span class="accent-bar"></span>
             <div class="card-cover"></div>
-            <span class="card-cat">指南</span>
-            <h3><span>写作与发布教程</span></h3>
-            <p>发文章、加链接、传图片和音频、分享大文件、推到 GitHub —— 手把手。</p>
-            <div class="card-meta"><span>新手友好</span><span class="dot"></span><span>8 月更新</span></div>
+            <div class="card-body">
+              <span class="card-cat">指南</span>
+              <div class="card-tags"><span class="pill">教程</span><span class="pill">GitHub</span><span class="pill">写作</span><span class="pill">排版</span></div>
+              <h3><span>写作与发布教程</span></h3>
+              <p>发文章、加链接、传图片和音频、分享大文件、推到 GitHub —— 手把手。</p>
+              <div class="card-meta"><span>新手友好</span><span class="dot"></span><span>8 月更新</span></div>
+            </div>
           </a>
         </div>
       </div>

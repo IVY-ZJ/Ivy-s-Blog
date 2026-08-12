@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; connect-src 'self'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <title>登录 · Ivy 学习笔记与资源分享</title>
+  <meta name="description" content="Ivy 博客登录页 — 把学到的东西，认真地记下来。" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/login.css" />
+  <link rel="icon" href="assets/img/favicon.jpg" />
+</head>
+<body class="login-body">
+
+  <!-- Background wallpaper (auto-switches in dark theme) -->
+  <div class="login-bg" aria-hidden="true"></div>
+  <div class="login-bg-tint" aria-hidden="true"></div>
+
+  <!-- Aurora glow accents -->
+  <div class="login-aurora" aria-hidden="true">
+    <span class="orb o1"></span>
+    <span class="orb o2"></span>
+    <span class="orb o3"></span>
+  </div>
+
+  <!-- Top brand (non-navigating: this IS the login page, must not skip into the site) -->
+  <header class="login-brand">
+    <div class="brand-mark" role="img" aria-label="Ivy's Open Folio">
+      <span class="mark-avatar"><img src="assets/img/avatar.jpg" alt="Ivy 头像" /></span>
+      <span class="mark-text">
+        <strong>Ivy's Open Folio</strong>
+      </span>
+    </div>
+  </header>
+
+  <!-- Right-side vertical poetry column -->
+  <aside class="login-poetry" aria-label="今日诗句">
+    <div class="poetry-rail">
+      <div class="poetry-inner">
+        <div class="poetry-couplet" id="poetry-couplet">
+          <span class="poetry-line">长风破浪会有时</span>
+          <span class="poetry-line">直挂云帆济沧海</span>
+        </div>
+        <span class="poetry-author" id="poetry-author">唐·李白《行路难·其一》</span>
+      </div>
+    </div>
+    <span class="poetry-flip" id="poetry-flip" aria-label="换一句">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 0 1 15.5-6.3L21 8"/>
+        <path d="M21 3v5h-5"/>
+        <path d="M21 12a9 9 0 0 1-15.5 6.3L3 16"/>
+        <path d="M3 21v-5h5"/>
+      </svg>
+    </span>
+  </aside>
+
+  <!-- Theme toggle -->
+  <button class="login-theme" data-login-theme aria-label="切换外观">
+    <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4.5"/>
+      <path d="M12 2v2.5M12 19.5V22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2 12h2.5M19.5 12H22M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/>
+    </svg>
+    <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 13.5a8 8 0 0 1-9.9-9.9 8.5 8.5 0 1 0 9.9 9.9Z"/></svg>
+  </button>
+
+  <!-- Login card -->
+  <main class="login-card" role="main">
+    <div class="card-glow"></div>
+
+    <div class="card-head">
+      <h1>欢迎</h1>
+    </div>
+
+    <form class="login-form" id="login-form" novalidate autocomplete="on">
+      <!-- Honeypot: visually hidden, ignored by humans, auto-filled by most bots -->
+      <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+        <label for="hp-field">请勿填写</label>
+        <input type="text" id="hp-field" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <label class="field">
+        <span class="field-label">用户名</span>
+        <span class="field-input">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          <input type="text" name="username" id="username" autocomplete="username" placeholder="你的名字" required />
+        </span>
+      </label>
+
+      <label class="field">
+        <span class="field-label">邮箱</span>
+        <span class="field-input">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg>
+          <input type="email" name="email" id="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required />
+        </span>
+      </label>
+
+      <!-- Drag verification -->
+      <div class="captcha" id="captcha" aria-label="拖动图形到指定位置以验证你是真人">
+        <div class="captcha-head">
+          <span class="captcha-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 9.4 8 10 4.5-.6 8-5 8-10V6Z"/><path d="m9 12 2 2 4-4"/></svg>
+            人机验证 · 拖动图形到目标位置
+          </span>
+          <button type="button" class="captcha-refresh" data-captcha-refresh aria-label="换一组图形">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.3L3 16"/><path d="M3 21v-5h5"/></svg>
+          </button>
+        </div>
+
+        <div class="captcha-track" id="captcha-track">
+          <!-- Faint hint strip (optional) -->
+          <svg class="captcha-track-bg" viewBox="0 0 360 80" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <pattern id="dotsPattern" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1.2" fill="currentColor" opacity="0.18"/>
+              </pattern>
+            </defs>
+            <rect width="360" height="80" fill="url(#dotsPattern)"/>
+          </svg>
+
+          <!-- Target silhouette (ghost outline at the target slot) -->
+          <div class="captcha-target" id="captcha-target" aria-hidden="true">
+            <svg viewBox="0 0 56 56" id="captcha-target-svg"></svg>
+          </div>
+
+          <!-- Connector line between drag origin and target -->
+          <div class="captcha-tether" id="captcha-tether" aria-hidden="true"></div>
+
+          <!-- Draggable shape (cloned at origin) -->
+          <div class="captcha-piece" id="captcha-piece" role="slider"
+               aria-label="可拖动图形" aria-valuemin="0" aria-valuemax="320" aria-valuenow="0" tabindex="0">
+            <svg viewBox="0 0 56 56" id="captcha-piece-svg"></svg>
+            <span class="piece-grip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h.01M9 12h.01M9 18h.01M15 6h.01M15 12h.01M15 18h.01"/></svg>
+            </span>
+          </div>
+
+          <!-- Status text -->
+          <div class="captcha-status" id="captcha-status">按住图形，拖到右侧虚线轮廓中</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label class="remember">
+          <input type="checkbox" id="remember" />
+          <span class="check-box">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg>
+          </span>
+          <span>在本机记住登录</span>
+        </label>
+      </div>
+
+      <button class="btn-login" type="submit" id="btn-login" disabled>
+        <span class="btn-label">登 录</span>
+        <span class="btn-spinner" aria-hidden="true"></span>
+      </button>
+    </form>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/login.js"></script>
+</body>
+</html>

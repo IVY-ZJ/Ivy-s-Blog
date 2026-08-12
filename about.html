@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; connect-src 'self'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
   <title>关于我 · Ivy </title>
   <meta name="description" content="关于 Ivy's Blog 与作者的一点介绍。" />
   <link rel="stylesheet" href="assets/css/style.css" />
@@ -21,8 +24,7 @@
     <div class="brand">
       <div class="avatar"><img src="assets/img/avatar.jpg" alt="Ivy 头像" /></div>
       <div class="brand-text">
-        <span class="brand-name">Ivy</span>
-        <span class="brand-sub">学习笔记 · 资源分享</span>
+        <span class="brand-name">Ivy's Open Folio</span>
       </div>
     </div>
     <nav class="nav">
@@ -102,7 +104,7 @@
         </div>
 
         <h2>如何联系我</h2>
-        <p>有疑问、纠错或想交换链接，欢迎发邮件到 <a href="mailto:ivyzj2000@gmail.com">ivyzj2000@gmail.com</a>，或在 <a href="https://github.com/IVY-ZJ" target="_blank" rel="noopener">GitHub</a> 上找我。也欢迎在文章下方留言交流。</p>
+        <p>有疑问、纠错或想交换链接，欢迎发邮件到 <a data-mail="moc.liamg@0002jzyvi">邮箱</a>，或在 <a href="https://github.com/IVY-ZJ" target="_blank" rel="noopener">GitHub</a> 上找我。也欢迎在文章下方留言交流。</p>
 
         <h2>技术栈</h2>
         <p>整个站点用时约一个下午，纯手写 <code>HTML / CSS / JavaScript</code>，遵循 iOS 设计语言(SF Pro 字体、毛玻璃、圆角卡片、系统色彩与明暗模式)。没有用任何框架或构建步骤 —— 这样最稳，也最好改。</p>

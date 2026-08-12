@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; connect-src 'self'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
   <title>写博客、推链接、传图片的完整教程 · Ivy</title>
   <meta name="description" content="手把手教你在这套博客里发文章、加链接、传图片/音频/大文件，并推送到 GitHub Pages。" />
   <link rel="stylesheet" href="../assets/css/style.css" />
@@ -20,7 +23,7 @@
     <div class="sidebar-resize" data-sidebar-resize aria-hidden="true"></div>
     <div class="brand">
       <div class="avatar"><img src="../assets/img/avatar.jpg" alt="Ivy 头像" /></div>
-      <div class="brand-text"><span class="brand-name">Ivy</span><span class="brand-sub">学习笔记 · 资源分享</span></div>
+      <div class="brand-text"><span class="brand-name">Ivy's Open Folio</span></div>
     </div>
     <nav class="nav">
       <span class="nav-label">浏览</span>

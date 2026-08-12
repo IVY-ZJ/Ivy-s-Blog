@@ -1,0 +1,8 @@
+# robots.txt — crawler guidance (honor-based: blocks polite bots only;
+# for real abuse protection put the site behind a CDN/WAF, e.g. Cloudflare).
+User-agent: *
+Allow: /
+
+# Keep internal JS/CSS out of search indexes (optional, harmless).
+Disallow: /assets/js/
+Disallow: /assets/css/
