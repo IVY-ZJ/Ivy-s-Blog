@@ -1,0 +1,10 @@
+# WorkBuddy 本地工具与临时文件（不应提交到站点仓库）
+.workbuddy/tools/
+.workbuddy/music-backup/
+.workbuddy/img-backup/
+.workbuddy/memory/*.png
+.workbuddy/memory/*.jpg
+.workbuddy/memory/serve.py
+.workbuddy/memory/ab.sh
+.workbuddy/memory/demo-session.js
+.workbuddy/memory/served.html
