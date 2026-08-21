@@ -72,9 +72,19 @@
       root.setAttribute("data-theme", mode);
     }
     localStorage.setItem("Ivy-theme", mode);
+    syncThemeUI();
   }
 
-  // Toggle cycles system -> light -> dark -> system
+  // Keep the switch thumb's aria state in sync with the actual theme.
+  function syncThemeUI() {
+    var cur = root.getAttribute("data-theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.querySelectorAll("[data-theme-toggle]").forEach(function (b) {
+      b.setAttribute("aria-checked", cur === "dark" ? "true" : "false");
+    });
+  }
+
+  // Toggle cycles light <-> dark
   document.addEventListener("click", function (e) {
     var t = e.target.closest("[data-theme-toggle]");
     if (!t) return;
@@ -90,7 +100,9 @@
         localStorage.getItem("Ivy-theme") === "system") {
       root.removeAttribute("data-theme");
     }
+    syncThemeUI();
   });
+  syncThemeUI();
 
   /* ---------- Session pill (login state surfaced in every sidebar) ---------- */
   function readSession() {
@@ -104,23 +116,6 @@
     localStorage.removeItem("ivy-session");
   }
   function ensureSessionNodes() {
-    // On the home page (which is the only page with a right-rail), drop a small
-    // single-line greeting above the tags card. The greeting is rendered as a
-    // fixed element pinned to the right column so it never disturbs the sidebar
-    // or the tags/music layout.
-    var hasRail = !!document.querySelector(".right-rail");
-    if (hasRail && !document.querySelector("[data-rail-greeting]")) {
-      var g = document.createElement("div");
-      g.className = "rail-greeting";
-      g.setAttribute("data-rail-greeting", "");
-      g.setAttribute("data-hello-line", "");
-      g.hidden = true;
-      g.innerHTML =
-        'Hello, <b class="hello-name" data-hello-name>Ivy</b>' +
-        '<span class="rg-wave" aria-hidden="true">👋</span>';
-      document.body.appendChild(g);
-    }
-
     // Inject session pill + login cta into every .sidebar-foot that doesn't already have them.
     var feet = document.querySelectorAll(".sidebar-foot");
     feet.forEach(function (foot) {
@@ -165,17 +160,6 @@
     });
     document.querySelectorAll("[data-login-cta]").forEach(function (cta) {
       cta.style.display = sess ? "none" : "";
-    });
-    document.querySelectorAll("[data-hello-line]").forEach(function (hello) {
-      var nameEl = hello.querySelector("[data-hello-name]");
-      if (sess) {
-        if (nameEl) nameEl.textContent = sess.username || "Ivy";
-        hello.hidden = false;
-        hello.classList.add("is-shown");
-      } else {
-        hello.hidden = true;
-        hello.classList.remove("is-shown");
-      }
     });
   }
   function bindLogout() {

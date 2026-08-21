@@ -6,9 +6,9 @@
   var TRACKS = window.SITE_TRACKS || [];
   var audio = document.getElementById("mpAudio");
   if (!audio) return;
+  var playerEl = document.getElementById("musicPlayer");
   var titleEl = document.getElementById("mpTitle");
   var subEl = document.getElementById("mpSub");
-  var artEl = document.getElementById("mpArt");
   var listEl = document.getElementById("playlist");
   var current = -1;
 
@@ -60,10 +60,16 @@
     });
   }
 
-  audio.addEventListener("play", function () { artEl.classList.add("is-spinning"); syncActive(); });
-  audio.addEventListener("pause", function () { artEl.classList.remove("is-spinning"); syncActive(); });
+  /* Playing state drives both the vinyl spin and the tonearm drop
+     (see #musicPlayer.is-playing rules in style.css). */
+  function setPlaying(on) {
+    playerEl.classList.toggle("is-playing", !!on);
+  }
+
+  audio.addEventListener("play", function () { setPlaying(true); syncActive(); });
+  audio.addEventListener("pause", function () { setPlaying(false); syncActive(); });
   audio.addEventListener("ended", function () {
-    artEl.classList.remove("is-spinning");
+    setPlaying(false);
     if (current + 1 < TRACKS.length) play(current + 1);
     else syncActive();
   });

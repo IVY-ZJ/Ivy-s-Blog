@@ -6,3 +6,7 @@ Allow: /
 # Keep internal JS/CSS out of search indexes (optional, harmless).
 Disallow: /assets/js/
 Disallow: /assets/css/
+
+# Course files are served through the viewer (obfuscated .dat, runtime
+# decryption + login guard); do not let crawlers index the raw assets.
+Disallow: /assets/files/
