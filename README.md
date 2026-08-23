@@ -14,6 +14,7 @@
 - **站内搜索 + 分类筛选**：「全部文章」页可按关键词与分类过滤，「资源分享」页可搜索资源，「学习笔记」页可搜索笔记
 - **小鸟头像**：侧边栏、关于页、文章作者位均使用小鸟头像
 - **登录页**：全屏照片背景 + 玻璃拟态卡片，右侧竖排展示 60 句积极诗句（每次随机、可手动切换），内置「拖动图形到目标位置」的人机验证；登录态保存在 localStorage（30 天），侧边栏显示用户胶囊并支持一键退出，首页右栏顶部显示单行问候「Hello, 用户名」
+- **课程资料页**：`course-food-safety.html` / `course-engdraw.html` 收口各门课程的资料（每份资料一个独立阅读页）；PDF 笔记在浏览器内本地解密为 blob（不提供原始下载），阅读页采用 `#view=Fit` 让单页 PDF 整页可见
 - **易扩展**：新增文章只需两步（见下）
 - **稳定**：纯静态文件，可托管在 GitHub Pages / Vercel / Netlify / 任意静态空间，无数据库、无后端
 
@@ -32,16 +33,24 @@ blog/
 ├─ tags.html           # 标签页（按主题聚合文章）
 ├─ music.html          # 音乐页（音频播放示例）
 ├─ about.html          # 关于我
+├─ course-food-safety.html  # 食品安全课程资料入口
+├─ course-engdraw.html       # 工程图学课程资料入口
+├─ course/                  # 每份课程资料一个独立网页
+│  ├─ fss-notes.html        # 食品安全 PDF 笔记阅读页（blob 解密 + #view=Fit 整页）
+│  ├─ fss-guide.html        # 复习纲要阅读页（iframe 全屏嵌入 HTML）
+│  ├─ fss-qa.html           # 问题答案版阅读页（fetch md + 极简渲染）
+│  └─ engdraw-terms.html    # 工程制图名词术语在线阅读页（静态 HTML + Word 下载）
 ├─ assets/
 │  ├─ css/style.css    # 设计系统（所有样式）
 │  ├─ css/login.css    # 登录页专属样式（玻璃卡片/诗句/验证轨道）
 │  ├─ img/             # 图片素材（壁纸 + 小鸟头像 avatar*.jpg + 封面 + login-bg*）
 │  ├─ audio/           # 音频（可按需新建）
 │  ├─ video/           # 视频（可按需新建）
-│  ├─ files/           # 可下载的小文件（可按需新建）
+│  ├─ files/           # 课程资料等可下载文件（含 .dat 混淆 PDF 与可下载 docx/md）
 │  └─ js/
 │     ├─ posts-data.js # 文章元数据（唯一数据源，含 tags 标签）
 │     ├─ login.js      # 登录页逻辑（诗句库/拖拽验证/登录态）
+│     ├─ fss-viewer.js # 课程资料阅读器（PDF 解密 + md 渲染 + guide 嵌入）
 │     └─ app.js        # 交互（侧边栏/主题/搜索/标签/拖动调宽/渲染/登录胶囊）
 └─ posts/              # 文章正文（每篇一个 HTML）
    ├─ effective-note-taking.html
@@ -69,22 +78,40 @@ npx serve blog
 
 ## 新增一篇文章
 
-1. **写正文**：复制 `posts/why-i-write.html`，重命名为 `posts/<你的slug>.html`，修改标题、日期、分类与 `.prose` 正文。分类目前支持：`笔记` / `资源` / `随笔` / `指南`（颜色和侧边条会按分类自动变化）。
+1. **写正文**：复制 `posts/why-i-write.html`，重命名为 `posts/<你的slug>.html`，修改标题、日期、分类与 `.prose` 正文。分类目前支持：`笔记` / `资料` / `随笔` / `指南`（颜色和侧边条会按分类自动变化）。
 2. **登记元数据**：在 `assets/js/posts-data.js` 的数组里加一条：
 
 ```js
 {
   slug: "your-slug",          // 与文件名一致（不含 .html）
   title: "文章标题",
-  cat: "笔记",                // 笔记 / 资源 / 随笔 / 指南
+  cat: "笔记",                // 笔记 / 资料 / 随笔 / 指南
   date: "2026-08-09",         // YYYY-MM-DD
   readTime: "8 分钟",
   excerpt: "一句话摘要，会显示在卡片上。",
   tags: ["标签1", "标签2"],   // 可选，会出现在「标签」页
+  // href: "course/xxx.html"  // 可选：自定义跳转链接（默认 posts/<slug>.html）
 }
 ```
 
 首页「最新文章」、归档页列表会自动更新，无需改其他文件。写了 `tags` 的文章会自动出现在 [标签页](tags.html)。
+
+> 💡 如果文章正文不在 `posts/<slug>.html`（比如复用已有的 `course/<xxx>.html` 阅读页），可在元数据里加 `href: "course/xxx.html"` 自定义跳转链接，slug 仍作为唯一标识。
+
+## 内容分类规则
+
+页面与文件按"是本地内容还是外部链接"分工，避免重复收录：
+
+| 页面 / 区块 | 内容范围 | 同步要求 |
+|---|---|---|
+| **`posts.html`** 全部文章 | **所有本地文件**——随笔 / 笔记 / 资料（含课程笔记、可下载的本地文档等），全部走 `posts-data.js` | 上传到本地的笔记/资料类文章，**必须**同步登记到 `posts-data.js`，并按需在 `notes.html` 课程专区或对应课程页里加入口 |
+| **`notes.html`** 学习笔记 | 课程笔记（按课程聚合，含课程专区 banner + 笔记文章卡片） | 本地笔记资源在 `notes.html`（课程 banner / 笔记列表）和 `posts.html`（全部文章列表）**双向同步** |
+| **`resources.html`** 资源分享 | **仅外部链接**——百度/夸克网盘分享、第三方网址、GitHub 仓库等 | 不收录本地文件；本地文件请走 `posts.html` |
+
+**判定流程**
+1. 内容是**外部链接**（网盘分享、URL、仓库）？→ 进 `resources.html`
+2. 内容是**本地文件**（自己的笔记、资料、术语释义等），哪怕只是一段定义汇编？→ 进 `posts.html`（并视情况同步到 `notes.html` 课程专区）
+3. 属于**某门课**的资料合集？→ 在 `posts.html` 收录的同时，为该课程建 `course-<slug>.html`（参考 `course-food-safety.html` / `course-engdraw.html`），并在 `notes.html` 顶部加 `course-banner` 入口
 
 ### 在文章里嵌入图片 / 音频 / 视频
 

@@ -6,26 +6,26 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; frame-src 'self' blob:; object-src 'none'; connect-src 'self'" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-  <title>全部文章 · Ivy</title>
-  <meta name="description" content="Ivy的全部文章列表，可按分类筛选与搜索。" />
+  <title>食品安全科学笔记 · 在线阅读 · Ivy</title>
+  <meta name="description" content="现代食品安全科学课程完整学习笔记，受保护文件，登录后在线解密阅读。" />
 
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="icon" href="assets/img/favicon.jpg" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="icon" href="../assets/img/favicon.jpg" />
 </head>
-<body>
+<body data-fss="pdf">
   <!-- Global navigation · Liquid Glass -->
   <header class="globalnav">
     <div class="globalnav-inner">
-      <a class="gn-brand" href="index.html" aria-label="Ivy's Open Folio 首页">
-        <span class="gn-avatar"><img src="assets/img/avatar.jpg" alt="Ivy 头像" /></span>
+      <a class="gn-brand" href="../index.html" aria-label="Ivy's Open Folio 首页">
+        <span class="gn-avatar"><img src="../assets/img/avatar.jpg" alt="Ivy 头像" /></span>
         <span class="gn-wordmark">Ivy&#39;s Open Folio</span>
       </a>
       <nav class="gn-links nav" aria-label="主导航">
-        <a class="nav-link" href="index.html"><span>首页</span></a>
-        <a class="nav-link" href="posts.html"><span>全部文章</span></a>
-        <a class="nav-link" href="notes.html"><span>学习笔记</span></a>
-        <a class="nav-link" href="resources.html"><span>资源分享</span></a>
-        <a class="nav-link" href="about.html"><span>关于我</span></a>
+        <a class="nav-link" href="../index.html"><span>首页</span></a>
+        <a class="nav-link" href="../posts.html"><span>全部文章</span></a>
+        <a class="nav-link" href="../notes.html"><span>学习笔记</span></a>
+        <a class="nav-link" href="../resources.html"><span>资源分享</span></a>
+        <a class="nav-link" href="../about.html"><span>关于我</span></a>
       </nav>
       <div class="gn-actions">
         <div class="sidebar-foot gn-session"></div>
@@ -50,41 +50,44 @@
   <!-- Mobile navigation sheet -->
   <div class="sheet sidebar">
     <div class="sheet-head">
-      <span class="sheet-avatar"><img src="assets/img/avatar.jpg" alt="Ivy 头像" /></span>
+      <span class="sheet-avatar"><img src="../assets/img/avatar.jpg" alt="Ivy 头像" /></span>
       <span class="sheet-title">Ivy&#39;s Open Folio</span>
     </div>
     <nav class="sheet-nav nav" aria-label="移动端导航">
-        <a class="nav-link" href="index.html"><span>首页</span></a>
-        <a class="nav-link" href="posts.html"><span>全部文章</span></a>
-        <a class="nav-link" href="notes.html"><span>学习笔记</span></a>
-        <a class="nav-link" href="resources.html"><span>资源分享</span></a>
-        <a class="nav-link" href="about.html"><span>关于我</span></a>
+        <a class="nav-link" href="../index.html"><span>首页</span></a>
+        <a class="nav-link" href="../posts.html"><span>全部文章</span></a>
+        <a class="nav-link" href="../notes.html"><span>学习笔记</span></a>
+        <a class="nav-link" href="../resources.html"><span>资源分享</span></a>
+        <a class="nav-link" href="../about.html"><span>关于我</span></a>
     </nav>
     <div class="sidebar-foot sheet-session"></div>
   </div>
   <div class="scrim" data-menu-close></div>
 
-  <main class="main">
-    <div class="page-head reveal">
-      <div class="eyebrow">Archive</div>
-      <h1>全部文章</h1>
-      <p>按分类筛选，或在下方搜索关键词</p>
+  <main class="main course-reader-main">
+    <div class="course-reader-head reveal">
+      <a class="course-back" href="../course-food-safety.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        课程资料
+      </a>
+      <div class="course-reader-title">
+        <div class="eyebrow">Course · 2026 秋冬</div>
+        <h1>食品安全科学笔记</h1>
+        <p>完整学习笔记 · PDF · 约 34 MB · 受保护文件，登录后在线解密阅读。</p>
+      </div>
     </div>
 
-    <div class="search-box reveal" style="margin-bottom:16px;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="archive-search" type="text" placeholder="搜索标题、摘要或分类…" aria-label="搜索文章" />
-    </div>
-    <div class="filter-bar reveal" id="filter-bar"></div>
-
-    <div class="grid" id="archive-list"></div>
+    <!-- PDF viewer: decrypted blob fills the viewport -->
+    <section class="fss-pdf-box fss-pdf-full" data-fss-pdf></section>
 
     <footer class="foot">
       <p>© 2026 Ivy</p>
+      <p><a href="../course-food-safety.html">← 返回课程资料</a></p>
     </footer>
   </main>
 
-  <script defer src="assets/js/posts-data.js"></script>
-  <script defer src="assets/js/app.js"></script>
+  <script defer src="../assets/js/posts-data.js"></script>
+  <script defer src="../assets/js/app.js"></script>
+  <script defer src="../assets/js/fss-viewer.js"></script>
 </body>
 </html>

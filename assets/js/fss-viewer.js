@@ -1,12 +1,19 @@
-/* Ivy's blog — course file viewer (food-safety course)
+/* Ivy's blog — course file viewers
    ------------------------------------------------
+   Each document gets its OWN page (course/ dir), opened like a blog post:
+     body[data-fss="pdf"]   -> course/fss-notes.html : protected PDF, decrypted
+                               blob in a full-viewport iframe
+     body[data-fss="guide"] -> course/fss-guide.html : review guide (HTML) in a
+                               full-viewport iframe
+     body[data-fss="qa"]    -> course/fss-qa.html    : Q&A markdown rendered as
+                               a full-page article
    1) PDF viewing: fetches the obfuscated .dat, reverses the scramble
       (xorshift32 stream + 4096-byte chunk reversal) at runtime, and
       renders it in an <iframe> via a blob: URL. The raw PDF never
       exists as a public file, so naive scrapers can't download it.
       This is obfuscation, not real encryption — the key ships here.
-   2) Markdown preview: tiny renderer for the review .md (headings,
-      lists, tables, code, bold) shown on demand.
+   2) Markdown renderer: tiny, safe renderer (headings, lists, tables,
+      code, bold, italic) used by the QA page.
    All content is additionally behind the site login guard (app.js). */
 (function () {
   "use strict";
@@ -55,7 +62,20 @@
     return u8;
   }
 
-  /* ---- PDF viewer ---- */
+  /* ---- friendly fetch failure hints ---- */
+  function fetchHint() {
+    if (location.protocol === "file:") {
+      return (
+        '<br><small style="opacity:.8;">检测到 <code>file://</code> 协议，浏览器禁止读取本地静态文件。' +
+        '请改用本地服务器打开（在该目录下执行 ' +
+        '<code>python -m http.server 8123</code>，然后访问 ' +
+        "<code>http://localhost:8123/" + location.pathname.split("/").pop() + '</code>）。</small>'
+      );
+    }
+    return '<br><small style="opacity:.8;">网络层失败：请确认服务器已启动且文件路径可访问。</small>';
+  }
+
+  /* ---- PDF page (course/fss-notes.html) ---- */
   function initPdfViewer() {
     var host = document.querySelector("[data-fss-pdf]");
     if (!host) return;
@@ -71,7 +91,7 @@
       '<span>正在解密并载入笔记 PDF（约 34 MB）…</span>';
     host.appendChild(loading);
 
-    fetch("assets/files/fss-notes.dat")
+    fetch("../assets/files/fss-notes.dat")
       .then(function (r) {
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.arrayBuffer();
@@ -84,7 +104,9 @@
         }
         var blob = new Blob([u8], { type: "application/pdf" });
         var url = URL.createObjectURL(blob);
-        iframe.src = url;
+        // #view=Fit makes Chromium's PDF viewer scale a whole page to the
+        // viewport, so one page is fully visible without scrolling.
+        iframe.src = url + "#view=Fit&toolbar=1&navpanes=1";
         host.classList.add("is-loaded");
         loading.remove();
         iframe.addEventListener("load", function () {
@@ -92,21 +114,64 @@
         });
       })
       .catch(function (err) {
+        var msg = (err && err.message) ? err.message : "网络错误";
+        var hint = /^(Failed to fetch|TypeError|NetworkError)/i.test(msg) ? fetchHint() : "";
         loading.innerHTML =
-          '<span class="fss-loading-err">载入失败：' +
-          (err && err.message ? err.message : "网络错误") +
-          "。请刷新重试。</span>";
+          '<span class="fss-loading-err">载入失败：' + msg +
+          "。请刷新重试。</span>" + hint;
+      });
+  }
+
+  /* ---- Guide page (course/fss-guide.html): embed the pre-built HTML ---- */
+  function initGuideFrame() {
+    var host = document.querySelector("[data-fss-guide-frame]");
+    if (!host) return;
+    var frame = document.createElement("iframe");
+    frame.className = "fss-guide-frame";
+    frame.setAttribute("title", "现代食品安全科学复习纲要 · 在线阅读");
+    host.appendChild(frame);
+    frame.addEventListener("load", function () {
+      host.classList.add("is-ready");
+    });
+    frame.src = "../assets/files/fss-review-guide.html";
+  }
+
+  /* ---- QA page (course/fss-qa.html): fetch + render markdown ---- */
+  function initQaPage() {
+    var article = document.querySelector("[data-fss-qa]");
+    if (!article) return;
+    var loading = document.createElement("div");
+    loading.className = "fss-loading";
+    loading.innerHTML =
+      '<span class="fss-loading-spin"></span>' +
+      "<span>正在载入文章…</span>";
+    article.appendChild(loading);
+
+    fetch("../assets/files/fss-qa.md")
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+      .then(function (txt) {
+        loading.remove();
+        article.innerHTML = renderMd(txt);
+      })
+      .catch(function (err) {
+        var msg = (err && err.message) ? err.message : "网络错误";
+        var hint = /^(Failed to fetch|TypeError|NetworkError)/i.test(msg) ? fetchHint() : "";
+        loading.innerHTML = '<div class="fss-loading-err">载入失败：' + msg + '。请刷新重试。' + hint + '</div>';
       });
   }
 
   /* ---- Minimal Markdown renderer (safe: escape first, then markup) ---- */
   function esc(s) {
-    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
   function inlineMd(s) {
     s = esc(s);
+    // inline code first (so * and _ inside don't get touched)
     s = s.replace(/`([^`]+)`/g, "<code>$1</code>");
+    // bold MUST come before italic so **X** isn't misread as two *s
     s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    s = s.replace(/__([^_]+)__/g, "<strong>$1</strong>");
+    s = s.replace(/~~([^~]+)~~/g, "<del>$1</del>");
     s = s.replace(/\*([^*]+)\*/g, "<em>$1</em>");
     return s;
   }
@@ -206,56 +271,9 @@
     return html.join("");
   }
 
-  /* ---- Markdown preview toggle ---- */
-  function initMdPreview() {
-    var btn = document.querySelector("[data-fss-md-toggle]");
-    if (!btn) return;
-    var box = document.querySelector("[data-fss-md-body]");
-    if (!box) return;
-    var loaded = false;
-    btn.addEventListener("click", function () {
-      if (btn.classList.contains("is-loading")) return;
-      if (box.classList.contains("is-open")) {
-        box.classList.remove("is-open");
-        btn.classList.remove("is-open");
-        btn.querySelector("[data-fss-md-label]").textContent = "在线预览";
-        return;
-      }
-      btn.classList.add("is-loading");
-      btn.querySelector("[data-fss-md-label]").textContent = "载入中…";
-      if (loaded) {
-        box.classList.add("is-open");
-        btn.classList.remove("is-loading");
-        btn.classList.add("is-open");
-        btn.querySelector("[data-fss-md-label]").textContent = "收起预览";
-        return;
-      }
-      fetch("assets/files/fss-qa.md")
-        .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
-        .then(function (txt) {
-          box.innerHTML = renderMd(txt);
-          loaded = true;
-          box.classList.add("is-open");
-          btn.classList.remove("is-loading");
-          btn.classList.add("is-open");
-          btn.querySelector("[data-fss-md-label]").textContent = "收起预览";
-        })
-        .catch(function () {
-          btn.classList.remove("is-loading");
-          btn.querySelector("[data-fss-md-label]").textContent = "载入失败，重试";
-        });
-    });
-  }
-
-  /* ---- light friction against saving the protected PDF ---- */
-  function initDragGuard() {
-    var host = document.querySelector("[data-fss-pdf]");
-    if (!host) return;
-    host.addEventListener("contextmenu", function (e) { e.preventDefault(); });
-    host.addEventListener("dragstart", function (e) { e.preventDefault(); });
-  }
-
-  initPdfViewer();
-  initMdPreview();
-  initDragGuard();
+  /* ---- dispatch by page type ---- */
+  var mode = document.body.getAttribute("data-fss");
+  if (mode === "pdf") initPdfViewer();
+  else if (mode === "guide") initGuideFrame();
+  else if (mode === "qa") initQaPage();
 })();

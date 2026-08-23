@@ -8,3 +8,11 @@
 .workbuddy/memory/ab.sh
 .workbuddy/memory/demo-session.js
 .workbuddy/memory/served.html
+# 临时下载目录（夸克网盘等临时取件）
+downloads/
+
+# WorkBuddy 项目数据（本地专用，不入站点仓库）
+.workbuddy/
+
+# 根目录源文件（已发布副本在 assets/files/）
+/工程图学术语解释.docx

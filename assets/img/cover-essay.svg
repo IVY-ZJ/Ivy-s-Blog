@@ -1,23 +1,33 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FF9500"/>
-      <stop offset="1" stop-color="#FF2D55"/>
+      <stop offset="0" stop-color="#FF9566"/>
+      <stop offset="1" stop-color="#FF689D"/>
     </linearGradient>
-    <radialGradient id="glow" cx="0.2" cy="0.82" r="0.6">
-      <stop offset="0" stop-color="#FFD60A" stop-opacity="0.75"/>
-      <stop offset="1" stop-color="#FFD60A" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="b"><feGaussianBlur stdDeviation="22"/></filter>
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFEAE0"/>
+    </linearGradient>
   </defs>
+
   <rect width="800" height="500" fill="url(#bg)"/>
-  <g filter="url(#b)"><circle cx="120" cy="400" r="250" fill="url(#glow)"/></g>
-  <g fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="3">
-    <path d="M-20 320 C 180 260 320 380 520 320 S 820 260 920 320"/>
-    <path d="M-20 384 C 180 324 320 444 520 384 S 820 324 920 384"/>
+
+  <!-- Paper: centered in the safe zone; tilted 3 degrees like a real notebook. -->
+  <g transform="translate(200 130) rotate(3)">
+    <rect width="400" height="200" rx="16" fill="url(#page)"/>
+    <rect x="30" y="26" width="78" height="9" rx="4.5" fill="#FF689D"/>
+    <rect x="30" y="50" width="290" height="6" rx="3" fill="#1E2A55" opacity="0.35"/>
+    <rect x="30" y="66" width="250" height="6" rx="3" fill="#1E2A55" opacity="0.28"/>
+    <rect x="30" y="82" width="270" height="6" rx="3" fill="#1E2A55" opacity="0.28"/>
+    <rect x="30" y="104" width="72" height="20" rx="10" fill="#FFD66F"/>
+    <rect x="30" y="136" width="290" height="6" rx="3" fill="#1E2A55" opacity="0.28"/>
+    <rect x="30" y="152" width="230" height="6" rx="3" fill="#1E2A55" opacity="0.22"/>
+    <rect x="30" y="168" width="260" height="6" rx="3" fill="#1E2A55" opacity="0.22"/>
   </g>
-  <g fill="#ffffff" fill-opacity="0.85">
-    <circle cx="600" cy="160" r="26"/>
-    <circle cx="662" cy="212" r="14"/>
+
+  <!-- Pen: hangs above the page, tip pointing toward the yellow pill. -->
+  <g transform="translate(560 110) rotate(26)">
+    <rect x="0" y="0" width="13" height="108" rx="5.5" fill="#FFFFFF" fill-opacity="0.92"/>
+    <polygon points="0,108 13,108 6.5,128" fill="#1E2A55" opacity="0.8"/>
   </g>
 </svg>

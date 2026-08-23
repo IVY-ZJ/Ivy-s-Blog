@@ -31,7 +31,9 @@
      visitors from deep-linking index.html / posts to skip the login.
      login.html itself loads login.js (not app.js), so no redirect loop. */
   function loginPathFor() {
-    return (location.pathname.indexOf("/posts/") >= 0) ? "../login.html" : "login.html";
+    // subdirectory pages (posts/, course/, music/…) live one level down
+    var segs = location.pathname.split("/").filter(Boolean);
+    return segs.length > 1 ? "../login.html" : "login.html";
   }
   function guardSession() {
     var valid = false;
@@ -41,7 +43,13 @@
     } catch (e) { valid = false; }
     if (valid) return false;
     var pop = location.pathname.split("/").pop();
-    var back = (location.pathname.indexOf("/posts/") >= 0 ? "posts/" : "") + pop + (location.search || "");
+    var isSub = location.pathname.split("/").filter(Boolean).length > 1;
+    var back = (isSub ? "posts/" : "") + pop + (location.search || "");
+    // for subdir pages other than posts/, keep the directory in the back path
+    if (isSub && location.pathname.indexOf("/posts/") < 0) {
+      var dir = location.pathname.split("/").slice(0, -1).pop();
+      back = dir + "/" + pop + (location.search || "");
+    }
     location.replace(loginPathFor() + "?back=" + encodeURIComponent(back));
     return true;
   }
@@ -135,7 +143,7 @@
       }
       var hasLogin = foot.querySelector("[data-login-cta]");
       if (!hasLogin) {
-        var loginPath = (location.pathname.indexOf("/posts/") >= 0) ? "../login.html" : "login.html";
+        var loginPath = loginPathFor();
         var cta = document.createElement("a");
         cta.className = "login-cta";
         cta.setAttribute("data-login-cta", "");
@@ -206,8 +214,9 @@
           p.tags.map(function (t) { return '<span class="pill">' + t + "</span>"; }).join("") +
         "</div>"
       : "";
+    var href = p.href || ("posts/" + p.slug + ".html");
     return (
-      '<a class="card reveal" data-delay="' + delay + '" data-cat="' + p.cat + '" href="posts/' + p.slug + '.html">' +
+      '<a class="card reveal" data-delay="' + delay + '" data-cat="' + p.cat + '" href="' + href + '">' +
         (cover ? '<div class="card-cover"></div>' : "") +
         '<div class="card-body">' +
           '<span class="card-cat">' + p.cat + "</span>" +
@@ -251,13 +260,17 @@
               revealIO.unobserve(el);
             }
           });
-        }, { threshold: 0.08 });
+        }, { threshold: 0.08, rootMargin: "0px 0px 10% 0px" });
       }
       // Assign stagger delays to any elements that don't have one yet
       els.forEach(function (el, i) {
         if (!el.dataset.delay) el.dataset.delay = (i % 6) * 60;
         revealIO.observe(el);
       });
+      // Safety net: some headless/automated environments never fire IO.
+      setTimeout(function () {
+        els.forEach(function (el) { if (!el.classList.contains("in")) el.classList.add("in"); });
+      }, 1500);
     } else {
       els.forEach(function (el) { el.classList.add("in"); });
     }
