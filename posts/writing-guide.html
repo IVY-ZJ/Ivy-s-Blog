@@ -66,13 +66,15 @@
 
   <main class="main">
     <article class="article reveal" data-cat="指南">
-      <div class="article-cover"><span class="cover-cap">写作指南</span></div>
       <div class="article-head">
         <a class="article-cat" href="../posts.html?q=指南">指南</a>
         <h1>写博客、推链接、传图片的完整教程</h1>
         <div class="article-meta">
           <span class="author-row"><span class="mini-avatar"><img src="../assets/img/avatar.jpg" alt="Ivy" /></span> IVY</span>
           <span>·</span><span>2026 年 8 月 9 日</span><span>·</span><span>10 分钟</span>
+        </div>
+        <div class="article-toolbar">
+          <div class="article-tags" id="article-tags"></div>
         </div>
       </div>
       <hr class="divider" />
@@ -157,7 +159,7 @@
           <li>图片建议先压缩到 200KB 以内（可用 <a href="https://tinypng.com" target="_blank" rel="noopener">TinyPNG</a>），否则网页会变慢。</li>
           <li>尽量用英文文件名，比如 <code>circuit-diagram.png</code>。</li>
         </ul>
-        <p>想让图片作为文章顶部的横幅？那是在 HTML 的 <code>&lt;div class="article-cover"&gt;</code> 里通过 CSS 背景图设置的，见 <code>assets/css/style.css</code> 里 <code>.article-cover</code> 相关规则。</p>
+        <p>想让文章顶部带一张横幅图？直接把图片放进 <code>assets/img/</code>，然后在正文里用 <code>&lt;figure&gt;</code> 包裹并附说明文字，或者用 <code>&lt;img&gt;</code> 内联；不需要任何特殊的封面条占位。</p>
 
         <h2>四、怎么放音频 / 视频</h2>
         <p>直接把音频文件放进 <code>assets/audio/</code>（新建），然后在正文里写：</p>
@@ -218,9 +220,126 @@ git push -u origin main</code></pre>
             写完先 <code>python -m http.server 8000</code> 在本地预览一遍，再推上去，就不会出现「线上打不开」的尴尬了。
           </div>
         </div>
+
+        <h2>七、发布前更新「关于我」统计数字（必做）</h2>
+        <p>「关于我」页的<strong>文章数</strong>和<strong>资源数</strong>不能靠手改，每次发了新文章或加了新资源，都要让它跟实际一致。本站用一个脚本自动同步：</p>
+        <pre><code>node scripts/update-stats.js</code></pre>
+        <p>它的计数口径（也是本站规范）：</p>
+        <ul>
+          <li><strong>文章数</strong> = <code>assets/js/posts-data.js</code> 里 <code>POSTS</code> 数组的条目数（全站文章/资料的单一信源，每发一篇都要在这里登记）。</li>
+          <li><strong>资源数</strong> = <code>resources.html</code> 里 <code>class="resource reveal"</code> 的卡片数量（即「资源分享」页的网盘合集条目）。</li>
+        </ul>
+        <p>脚本会把算出的数字回填进 <code>about.html</code>（锚点注释 <code>&lt;!--STAT-POSTS--&gt;</code> 和 <code>&lt;!--STAT-RESOURCES--&gt;</code> 之间），<strong>不要手动改这两个数字</strong>。每次 <code>git commit</code> 之前跑一次即可，幂等、可重复执行。</p>
+        <div class="callout">
+          <div class="callout-icon blue">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+          </div>
+          <div class="callout-body">
+            <strong>发布清单</strong>
+            发文章 / 加资源后，按顺序：① 登记 <code>posts-data.js</code>（含 tags）或加 <code>resources.html</code> 卡片 → ② <code>node scripts/update-stats.js</code> 同步统计 → ③ 本地预览 → ④ <code>git add -A &amp;&amp; git commit &amp;&amp; git push</code>。
+          </div>
+        </div>
+
+        <h3>第 3 步：同步标签到右侧面板与标签页</h3>
+        <p>首页右侧「标签」面板和 <code>tags.html</code> 标签页都<strong>不是静态写死</strong>的，它们由 <code>assets/js/app.js</code> 在页面打开时，自动从 <code>posts-data.js</code> 的 <code>tags</code> 字段聚合生成。因此，只要新文章的 tags 登记进了 <code>posts-data.js</code>，刷新首页后它们就会出现在右侧面板（数量过多时面板内部可滚动）。</p>
+        <p><strong>注意：</strong>如果刷新后没看到新标签，大概率是浏览器缓存了旧版 <code>app.js</code> 或 <code>posts-data.js</code>，按 <code>Ctrl + Shift + R</code> 强制刷新即可。</p>
+
+        <h2>八、受保护 PDF 的混淆与嵌入规范（必读）</h2>
+        <p>「课程资料」里需要受保护的 PDF（如工程训练复习课、食品安全笔记）不能原样上传——否则谁都能从 GitHub Pages 直接下载。本站用一套<strong>前端混淆 + 运行时解密</strong>：源 PDF 先被 <code>scripts/obfuscate_pdf.py</code> 打乱成 <code>.dat</code>，页面加载时由 <code>assets/js/fss-viewer.js</code> 在内存里还原成 blob 再渲染。这叫<strong>混淆不是加密</strong>（密钥随页面下发），目的只是挡住爬虫和随手下载。</p>
+
+        <h3>第 1 步：把 PDF 混淆成 .dat</h3>
+        <p>把源 PDF 命名为 <code>assets/files/&lt;页面名&gt;.src.pdf</code>（例如 <code>engtrain-review.src.pdf</code>），然后：</p>
+        <pre><code>python scripts/obfuscate_pdf.py \
+  --src assets/files/engtrain-review.src.pdf \
+  --dst assets/files/engtrain-review.dat</code></pre>
+        <ul>
+          <li>不传参数时默认处理 <code>fss-notes</code>，兼容旧用法。</li>
+          <li>输出的 <code>.dat</code> 必须与页面同名（<code>engtrain-review.html</code> ↔ <code>engtrain-review.dat</code>）。</li>
+          <li><strong>源 PDF（<code>.src.pdf</code>）不要提交到仓库</strong>，本地留底即可；只上传 <code>.dat</code>。</li>
+        </ul>
+
+        <h3>第 2 步：在课程页嵌入</h3>
+        <p>课程页写 <code>&lt;body data-fss="pdf"&gt;</code>，正文放一个容器即可，<strong>多数情况无需任何属性</strong>：</p>
+        <pre><code>&lt;section class="fss-pdf-box fss-pdf-full" data-fss-pdf&gt;&lt;/section&gt;</code></pre>
+        <p><code>fss-pdf-full</code> 必须带上：它让 PDF 嵌入框高度等于 <code>100dvh - 11px</code>，上边界对齐导航栏下沿，下边界几乎贴合视口底部。11px = 导航栏 top 间距 6px + 栏高 54px + 栏内上下 padding 各 8px - 65px。</p>
+        <p>脚本会按<strong>当前页面文件名</strong>自动找 <code>../assets/files/&lt;页面名&gt;.dat</code>。需要自定义时，用属性覆盖：</p>
+        <pre><code>&lt;section class="fss-pdf-box fss-pdf-full" data-fss-pdf
+         data-dat="../assets/files/engtrain-review.dat"
+         data-title="工程训练复习课 PDF 预览"
+         data-size="约 4.4 MB"&gt;&lt;/section&gt;</code></pre>
+
+        <div class="callout">
+          <div class="callout-icon blue">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+          </div>
+          <div class="callout-body">
+            <strong>四条铁律</strong>
+            ① 容器必须带 <code>fss-pdf-full</code>，否则 PDF 框只有 72vh，上下会空出大片留白；② 混淆脚本里的 <code>KEY</code> 必须和 <code>fss-viewer.js</code> 里的 <code>KEY</code> 一字不差，否则前端报「解密校验失败」；③ 必须用本地服务器（<code>python -m http.server</code>）打开，<code>file://</code> 协议下浏览器禁止读取静态文件，PDF 一定加载不出来；④ 改完记得跑 <code>node scripts/update-stats.js</code>（见第七节）再提交。
+          </div>
+        </div>
       </div>
 
       <hr class="divider" />
+
+      <h2>九、怎么新建一个课程专区</h2>
+      <p>每门课都要有一个<strong>专区落地页</strong>（如 <code>course-food-safety.html</code>、<code>course-engtrain.html</code>、<code>course-ode.html</code>），里面用卡片列出该课的所有资料，每张卡片点进去是独立的阅读页。以「常微分方程」为例，完整流程如下。</p>
+
+      <h3>第 1 步：放资料源文件</h3>
+      <p>纯文本 / Markdown 笔记直接放进 <code>assets/files/</code>：</p>
+      <pre><code>assets/files/ode-notes.md   ← 常微分方程学习笔记（单一信源，也是下载入口）</code></pre>
+      <p>阅读页用 <code>data-fss="qa"</code> 拉取这个 <code>.md</code> 并在前端渲染，<strong>公式用 KaTeX、<code>!!! note "标题"</code> 提示框、Markdown 表格都会自动识别</strong>，无需手写 HTML。</p>
+
+      <h3>第 2 步：建阅读页</h3>
+      <p>复制 <code>course/engtrain-notes.html</code>（或 <code>course/fss-qa.html</code>）改三处：</p>
+      <pre><code>&lt;body data-fss="qa"&gt;
+  …
+  &lt;a class="article-cat" href="../course-ode.html"&gt;课程资料&lt;/a&gt;
+  &lt;h1&gt;常微分方程学习笔记&lt;/h1&gt;
+  …
+  &lt;a href="../assets/files/ode-notes.md" download="常微分方程学习笔记.md"&gt;下载 Markdown&lt;/a&gt;
+  …
+  &lt;article class="prose fss-qa-article reveal" data-fss-qa data-md="../assets/files/ode-notes.md"&gt;&lt;/article&gt;
+  …
+  &lt;script defer src="../assets/vendor/katex/katex.min.js"&gt;&lt;/script&gt;
+  &lt;script defer src="../assets/vendor/katex/contrib/auto-render.min.js"&gt;&lt;/script&gt;</code></pre>
+      <p>关键点：<strong>底部必须引入 KaTeX 两个脚本</strong>（带公式时），否则 <code>$…$</code> 只显示原文。</p>
+
+      <h3>第 3 步：建专区落地页</h3>
+      <p>复制 <code>course-engtrain.html</code>，改 <code>&lt;h1&gt;</code> 课程名、hero 文案、<code>1 份资料</code> 计数，以及 <code>.fss-grid</code> 里的卡片：</p>
+      <pre><code>&lt;a class="fss-file-card fss-file-card-link" href="course/ode-notes.html"&gt;
+  &lt;span class="fss-file-icon type-md"&gt;…&lt;/span&gt;
+  &lt;span class="fss-badge open"&gt;可阅读&lt;/span&gt;
+  &lt;h3 class="fss-file-name"&gt;常微分方程学习笔记&lt;/h3&gt;
+  &lt;p class="fss-file-meta"&gt;Markdown · 约 22 KB · 可在线阅读&lt;/p&gt;
+  &lt;p class="fss-file-desc"&gt;覆盖初等积分法、高阶方程……独立页面渲染全文。&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+
+      <h3>第 4 步：登记元数据 + 同步统计</h3>
+      <p>在 <code>assets/js/posts-data.js</code> 的数组里加一条（<code>slug</code> 与阅读页文件名对应）：</p>
+      <pre><code>{
+  slug: "ode-notes",
+  href: "course/ode-notes.html",
+  title: "常微分方程学习笔记",
+  cat: "笔记",
+  date: "2026-08-25",
+  readTime: "约 22 KB",
+  cover: "assets/img/cover-notes.svg",
+  excerpt: "常微分方程完整学习笔记……",
+  tags: ["常微分方程", "课程笔记"],
+}</code></pre>
+      <p>然后跑统计脚本，让「关于我」和右侧标签面板同步：</p>
+      <pre><code>node scripts/update-stats.js</code></pre>
+
+      <div class="callout">
+        <div class="callout-icon green">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <div class="callout-body">
+          <strong>一句话 checklist</strong>
+          放 <code>assets/files/*.md</code> → 建 <code>course/&lt;名&gt;-notes.html</code>（带 KaTeX）→ 建 <code>course-&lt;名&gt;.html</code> 专区 → 登记 <code>posts-data.js</code> → <code>node scripts/update-stats.js</code> → 本地预览 → <code>git push</code>。
+        </div>
+      </div>
+
       <p style="color:var(--label-secondary);font-size:15px;text-align:center;">
         <a href="../posts.html">← 返回全部文章</a>
       </p>

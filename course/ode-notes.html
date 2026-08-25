@@ -6,13 +6,14 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; frame-src 'self' blob:; object-src 'none'; connect-src 'self'" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-  <title>大二秋冬课程资料合集（网盘分享）· Ivy</title>
-  <meta name="description" content="电路、信号与系统、电磁场等课程的课件、习题与往年试卷整理打包。" />
+  <title>常微分方程学习笔记 · 在线阅读 · Ivy</title>
+  <meta name="description" content="常微分方程学习笔记，可在线阅读全文，含初等积分法、高阶方程、微分方程组、存在唯一性定理与矩阵指数等章节。" />
 
   <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css" />
   <link rel="icon" href="../assets/img/favicon.jpg" />
 </head>
-<body class="article-page">
+<body data-fss="qa">
   <!-- Global navigation · Liquid Glass -->
   <header class="globalnav">
     <div class="globalnav-inner">
@@ -65,58 +66,38 @@
   <div class="scrim" data-menu-close></div>
 
   <main class="main">
-    <article class="article reveal" data-cat="资料">
-      <div class="article-cover"><span class="cover-cap">资料分享</span></div>
+    <article class="article reveal">
       <div class="article-head">
-        <a class="article-cat" href="../resources.html">资料分享</a>
-        <h1>大二秋冬课程资料合集（网盘分享）</h1>
+        <a class="article-cat" href="../course-ode.html">课程资料</a>
+        <h1>常微分方程学习笔记</h1>
         <div class="article-meta">
-          <span class="author-row"><span class="mini-avatar"><img src="../assets/img/avatar.jpg" alt="Ivy" /></span> IVY</span>
-          <span>·</span><span>2026 年 7 月 15 日</span><span>·</span><span>5 分钟</span>
+          <span>按章节整理</span><span>·</span><span>Markdown · 约 22 KB</span>
+        </div>
+        <div class="article-toolbar">
+          <div class="article-actions">
+            <a class="fss-dl ghost" href="../assets/files/ode-notes.md" download="常微分方程学习笔记.md">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
+              下载 Markdown
+            </a>
+          </div>
         </div>
       </div>
       <hr class="divider" />
 
-      <div class="prose">
-        <p>有人想要大二上学期的课程资料，这里把能找到的整理一下。不定期更新（低情商：不催我就不更新）。</p>
-
-        <h2>包含内容</h2>
-        <ul>
-          <li><strong>电路与电子技术 1</strong>：课件、作业答案、期中期末卷。</li>
-          <li><strong>信号与系统</strong>：讲义 + 经典习题详解。</li>
-          <li><strong>电磁场与波</strong>：公式速查表 + 往年试题。</li>
-          <li><strong>工程数学</strong>：复变、积分变换笔记。</li>
-        </ul>
-
-        <div class="callout">
-          <div class="callout-icon orange">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
-          </div>
-          <div class="callout-body">
-            <strong>关于大文件</strong>
-            单个超过 100MB 的文件曾让我网站崩了半天，所以资源统一走网盘，提取码见下。链接失效请邮件提醒我。
-          </div>
-        </div>
-
-        <h2>获取方式</h2>
-        <p>百度网盘链接：<a href="https://pan.baidu.com" target="_blank" rel="noopener">https://pan.baidu.com/s/1SP5zCHrkOmlj61kzHusenw</a></p>
-        <p>提取码：<code>pvez</code>（来自百度网盘超级会员 V4 的分享，凑合用 😄）</p>
-
-        <p>更完整的清单与更新日志，见 <a href="../resources.html">资源分享</a> 页面。如果这份资料帮到了你，欢迎在 <a href="https://github.com/IVY-ZJ" target="_blank" rel="noopener">GitHub</a> 点个 star～</p>
-      </div>
-
-      <hr class="divider" />
-      <p style="color:var(--label-secondary);font-size:15px;text-align:center;">
-        <a href="../posts.html">← 返回全部文章</a> · 下一篇：<a href="why-i-write.html">为什么我坚持公开写学习笔记</a>
-      </p>
+      <!-- QA article: full-page markdown render -->
+      <article class="prose fss-qa-article reveal" data-fss-qa data-md="../assets/files/ode-notes.md"></article>
     </article>
 
     <footer class="foot">
       <p>© 2026 Ivy</p>
+      <p><a href="../course-ode.html">← 返回课程资料</a></p>
     </footer>
   </main>
 
   <script defer src="../assets/js/posts-data.js"></script>
   <script defer src="../assets/js/app.js"></script>
+  <script defer src="../assets/vendor/katex/katex.min.js"></script>
+  <script defer src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+  <script defer src="../assets/js/fss-viewer.js"></script>
 </body>
 </html>

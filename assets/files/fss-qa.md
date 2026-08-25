@@ -1,13 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: e09b297cf2db44360f14aebe3dcf0280_27509ace749b11f1b2f55254006c9bbf
-    ReservedCode1: 4eGouvBc6neHRXnh6jUjrS0Ps/XZ0QdHIgGWguLWJ+akr87i4LcV98HLwzncPuZpJGBWxgho2u2f8vAV11GfqWz/TH3pcO5LjGhvd/6AZaGBjb4PmGgZeXrp7eBPuvzGeg65YwOpsGzJ55RGZ3wk7gM76cqgYqwXtxRJXmK2wGcDCi+7Ct9SttAonYw=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: e09b297cf2db44360f14aebe3dcf0280_27509ace749b11f1b2f55254006c9bbf
-    ReservedCode2: 4eGouvBc6neHRXnh6jUjrS0Ps/XZ0QdHIgGWguLWJ+akr87i4LcV98HLwzncPuZpJGBWxgho2u2f8vAV11GfqWz/TH3pcO5LjGhvd/6AZaGBjb4PmGgZeXrp7eBPuvzGeg65YwOpsGzJ55RGZ3wk7gM76cqgYqwXtxRJXmK2wGcDCi+7Ct9SttAonYw=
----
 
 # 食品安全复习资料（问题+答案版）
 

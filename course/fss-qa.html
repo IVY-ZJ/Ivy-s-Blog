@@ -10,6 +10,7 @@
   <meta name="description" content="以问答形式整理的食品安全复习资料，可在线阅读全文。" />
 
   <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css" />
   <link rel="icon" href="../assets/img/favicon.jpg" />
 </head>
 <body data-fss="qa">
@@ -64,25 +65,28 @@
   </div>
   <div class="scrim" data-menu-close></div>
 
-  <main class="main course-reader-main">
-    <div class="course-reader-head reveal">
-      <a class="course-back" href="../course-food-safety.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-        课程资料
-      </a>
-      <div class="course-reader-title">
-        <div class="eyebrow">Course · 2026 秋冬</div>
+  <main class="main">
+    <article class="article reveal">
+      <div class="article-head">
+        <a class="article-cat" href="../course-food-safety.html">课程资料</a>
         <h1>食品安全复习 · 问题答案版</h1>
-        <p>以问答形式整理的复习资料 · Markdown · 约 207 KB · 可在线阅读全文，也支持下载离线查看。</p>
+        <div class="article-meta">
+          <span>问答式复习资料</span><span>·</span><span>Markdown · 约 207 KB</span>
+        </div>
+        <div class="article-toolbar">
+          <div class="article-actions">
+            <a class="fss-dl ghost" href="../assets/files/fss-qa.md" download="食品安全复习_问题答案版.md">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
+              下载 Markdown
+            </a>
+          </div>
+        </div>
       </div>
-      <a class="fss-dl ghost" href="../assets/files/fss-qa.md" download="食品安全复习_问题答案版.md">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
-        下载 Markdown
-      </a>
-    </div>
+      <hr class="divider" />
 
-    <!-- QA article: full-page markdown render -->
-    <article class="fss-article fss-qa-article reveal" data-fss-qa></article>
+      <!-- QA article: full-page markdown render -->
+      <article class="prose fss-qa-article reveal" data-fss-qa></article>
+    </article>
 
     <footer class="foot">
       <p>© 2026 Ivy</p>
@@ -92,6 +96,8 @@
 
   <script defer src="../assets/js/posts-data.js"></script>
   <script defer src="../assets/js/app.js"></script>
+  <script defer src="../assets/vendor/katex/katex.min.js"></script>
+  <script defer src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
   <script defer src="../assets/js/fss-viewer.js"></script>
 </body>
 </html>

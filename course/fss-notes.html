@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; frame-src 'self' blob:; object-src 'none'; connect-src 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; frame-src 'self' blob:; object-src 'self' blob:; connect-src 'self'" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
   <title>食品安全科学笔记 · 在线阅读 · Ivy</title>
@@ -64,21 +64,21 @@
   </div>
   <div class="scrim" data-menu-close></div>
 
-  <main class="main course-reader-main">
-    <div class="course-reader-head reveal">
-      <a class="course-back" href="../course-food-safety.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-        课程资料
-      </a>
-      <div class="course-reader-title">
-        <div class="eyebrow">Course · 2026 秋冬</div>
+  <main class="main">
+    <article class="article reveal">
+      <div class="article-head">
+        <a class="article-cat" href="../course-food-safety.html">课程资料</a>
         <h1>食品安全科学笔记</h1>
-        <p>完整学习笔记 · PDF · 约 34 MB · 受保护文件，登录后在线解密阅读。</p>
+        <div class="article-meta">
+          <span>完整学习笔记</span><span>·</span><span>PDF · 约 34 MB</span><span>·</span><span>受保护 · 登录后阅读</span>
+        </div>
+        <div class="article-toolbar"></div>
       </div>
-    </div>
+      <hr class="divider" />
 
-    <!-- PDF viewer: decrypted blob fills the viewport -->
-    <section class="fss-pdf-box fss-pdf-full" data-fss-pdf></section>
+      <!-- PDF viewer: decrypted blob fills the card -->
+      <section class="fss-pdf-box fss-pdf-full" data-fss-pdf></section>
+    </article>
 
     <footer class="foot">
       <p>© 2026 Ivy</p>

@@ -67,7 +67,7 @@
     <div class="page-head reveal">
       <div class="eyebrow">Music</div>
       <h1>音乐</h1>
-      <p>偶尔更新·一些轻音乐</p>
+      <p>一些轻音乐·偶尔更新</p>
     </div>
 
     <section class="music-player reveal" id="musicPlayer">
@@ -82,7 +82,16 @@
         <h2 class="mp-title" id="mpTitle">选择一首曲子</h2>
         <span class="mp-sub" id="mpSub">点击下方的列表开始播放</span>
       </div>
-      <audio id="mpAudio" class="mp-audio" controls preload="metadata"></audio>
+      <div class="mp-transport">
+        <button class="mp-play" id="mpPlay" type="button" aria-label="播放 / 暂停">
+          <svg class="mp-ic-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="mp-ic-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+        </button>
+        <span class="mp-time" id="mpTimeCur">0:00</span>
+        <div class="mp-bar" id="mpBar"><div class="mp-bar-fill" id="mpBarFill"></div></div>
+        <span class="mp-time" id="mpTimeTotal">0:00</span>
+      </div>
+      <!-- 音频元素由 app.js 的全局播放器控制器托管（PJAX 换页不中断） -->
     </section>
 
     <ul class="playlist reveal" id="playlist" aria-label="播放列表"></ul>
@@ -95,6 +104,6 @@
   <script defer src="assets/js/posts-data.js"></script>
   <script defer src="assets/js/tracks.js"></script>
   <script defer src="assets/js/app.js"></script>
-    <script defer src="assets/js/music-player.js"></script>
+  <script defer src="assets/js/music-player.js"></script>
 </body>
 </html>

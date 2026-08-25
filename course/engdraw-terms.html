@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="icon" href="../assets/img/favicon.jpg" />
 </head>
-<body>
+<body class="article-page">
   <!-- Global navigation · Liquid Glass -->
   <header class="globalnav">
     <div class="globalnav-inner">
@@ -37,7 +37,7 @@
           </span>
         </button>
         <div class="social-row">
-          <a href="https://github.com/IVY-ZJ" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a>
+          <a href="https://github.com/IVY-ZJ" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a>
           <a href="mailto:ivyzj2000@gmail.com" aria-label="邮箱"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg></a>
         </div>
         <button class="menu-btn" data-menu-open aria-label="打开菜单">
@@ -64,29 +64,28 @@
   </div>
   <div class="scrim" data-menu-close></div>
 
-  <main class="main course-reader-main">
-    <div class="course-reader-head reveal">
-      <a class="course-back" href="../resources.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-        资源分享
-      </a>
-      <div class="course-reader-title">
-        <div class="eyebrow">Course · 工程图学</div>
+  <main class="main">
+    <article class="article reveal" data-cat="资料">
+      <div class="article-head">
+        <a class="article-cat" href="../resources.html">资料分享</a>
         <h1>工程制图名词术语 · 概念释义汇编</h1>
-        <p>14 个分类、70 个术语 · Word · 20 KB · 可在线阅读全文，也支持下载离线查看。</p>
+        <div class="article-meta">
+          <span class="author-row"><span class="mini-avatar"><img src="../assets/img/avatar.jpg" alt="Ivy" /></span> IVY</span>
+          <span>·</span><span>2026 年 8 月 22 日</span><span>·</span><span>15 分钟</span>
+        </div>
+        <div class="article-toolbar">
+          <div class="article-tags" id="article-tags"></div>
+          <div class="article-actions">
+          <a class="fss-dl ghost" href="../assets/files/工程图学术语解释.docx" download="工程图学术语解释.docx">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
+            下载 Word
+          </a>
+          </div>
+        </div>
       </div>
-      <a class="fss-dl ghost" href="../assets/files/工程图学术语解释.docx" download="工程图学术语解释.docx">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
-        下载 Word
-      </a>
-    </div>
+      <hr class="divider" />
 
-    <!-- Glossary article: static content -->
-
-<section class="gd-article reveal">
-  <div class="gd-intro">
-    <p>按主题整理的工程制图核心名词释义，共 14 个分类、70 个术语。蓝色圆点标记概念层级，点击分类可快速定位。</p>
-  </div>
+      <div class="prose prose-glossary">
 <section class="gd-sec">
 <h2 class="gd-sec-title">投影基础</h2>
 <dl class="gd-list">
@@ -227,11 +226,16 @@
 <div class="gd-item"><dt>技术要求</dt><dd>主要包括零件装配过程中的质量要求，以及在检验、调试过程中的特殊要求等。这些要求，应根据装配体的结构特点和使用性能注写。</dd></div>
 </dl>
 </section>
-</section>
+      </div>
+
+      <hr class="divider" />
+      <p style="color:var(--label-secondary);font-size:15px;text-align:center;">
+        <a href="../posts.html">← 返回全部文章</a> · 相关：<a href="../course-engdraw.html">工程图学课程专区</a>
+      </p>
+    </article>
 
     <footer class="foot">
       <p>© 2026 Ivy</p>
-      <p><a href="../course-engdraw.html">← 返回课程专区</a></p>
     </footer>
   </main>
 
