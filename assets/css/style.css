@@ -2436,6 +2436,10 @@ body.nav-open .scrim { opacity: 1; pointer-events: auto; }
 }
 .fss-qa-article hr { margin: 26px 0; border: none; border-top: 1px solid var(--glass-border); }
 
+/* Inline math placeholders are rendered by KaTeX into .katex spans. */
+.math-inline { display: inline; }
+.math-inline:empty { min-width: 1em; display: inline-block; }
+
 .fss-banner {
   margin: 0 0 14px;
   padding: 12px 14px;

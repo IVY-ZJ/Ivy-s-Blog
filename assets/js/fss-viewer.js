@@ -211,12 +211,22 @@
             window.katex.render(tex, div, { displayMode: true, throwOnError: false });
           });
         } catch (e) { /* display math failed — leave raw text */ }
+        // Inline math is converted to .math-inline placeholders by renderMd,
+        // so we render them directly with katex instead of relying on
+        // auto-render's delimiter scanner (which can miss formulas in some
+        // DOM structures or when throwOnError:false leaves raw text).
+        try {
+          article.querySelectorAll(".math-inline[data-tex]").forEach(function (span) {
+            var tex = "";
+            try { tex = decodeURIComponent(span.getAttribute("data-tex") || ""); } catch (e) { tex = ""; }
+            window.katex.render(tex, span, { displayMode: false, throwOnError: false });
+          });
+        } catch (e) { /* inline math failed — leave raw text */ }
+        // Fallback: if any raw $...$ slipped through, ask auto-render to catch it.
         if (typeof window.renderMathInElement === "function") {
           try {
             window.renderMathInElement(article, {
-              delimiters: [
-                { left: "$", right: "$", display: false }
-              ],
+              delimiters: [{ left: "$", right: "$", display: false }],
               throwOnError: false
             });
           } catch (e) { /* inline math failed — leave raw text */ }
@@ -242,12 +252,24 @@
     return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
   function inlineMd(s) {
-    // Split out $...$ math FIRST so formatting chars (* _ **) inside a
-    // formula are never touched — otherwise * in e.g. `$y^*$` gets
-    // misread as emphasis and KaTeX can't parse the expression.
+    // 1) Protect inline code `...` so $ / * / _ inside backticks are never
+    // touched by math or emphasis regexes.
+    var codeTokens = [];
+    s = s.replace(/`([^`]+)`/g, function (_, code) {
+      codeTokens.push(code);
+      return "\u0000CODE" + (codeTokens.length - 1) + "\u0000";
+    });
+
+    // 2) Split out $...$ math and format the non-math segments separately.
+    // Math becomes placeholder spans; they must NOT be escaped by esc().
     var parts = s.split(/(\$[^$\n]+?\$)/g);
-    return parts.map(function (seg) {
-      if (/^\$[^$\n]+?\$/.test(seg)) return seg; // math: leave verbatim for KaTeX
+    var out = parts.map(function (seg) {
+      if (/^\$[^$\n]+?\$/.test(seg)) {
+        var tex = seg.slice(1, -1).replace(/\s+/g, " ").trim();
+        return '<span class="math-inline" data-tex="' +
+          encodeURIComponent(tex) +
+          '"></span>';
+      }
       // --- plain text segment ---
       seg = esc(seg);
       // markdown links [text](url) — before other inline formatting
@@ -259,8 +281,6 @@
           if (title) attrs += ' title="' + title + '"';
           return "<a" + attrs + ">" + text + "</a>";
         });
-      // inline code first (so * and _ inside don't get touched)
-      seg = seg.replace(/`([^`]+)`/g, "<code>$1</code>");
       // bold MUST come before italic so **X** isn't misread as two *s
       seg = seg.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
       seg = seg.replace(/__([^_]+)__/g, "<strong>$1</strong>");
@@ -268,6 +288,12 @@
       seg = seg.replace(/\*([^*]+)\*/g, "<em>$1</em>");
       return seg;
     }).join("");
+
+    // 3) Restore inline code.
+    out = out.replace(/\u0000CODE(\d+)\u0000/g, function (_, i) {
+      return "<code>" + esc(codeTokens[i]) + "</code>";
+    });
+    return out;
   }
   function renderMd(src) {
     src = stripFrontMatter(src);
