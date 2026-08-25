@@ -330,13 +330,27 @@ git push -u origin main</code></pre>
       <p>然后跑统计脚本，让「关于我」和右侧标签面板同步：</p>
       <pre><code>node scripts/update-stats.js</code></pre>
 
+      <h3>第 5 步：挂到「学习笔记」页的课程专区入口</h3>
+      <p>用户从 <code>notes.html</code> 进入课程专区，所以必须在 <code>notes.html</code> 顶部课程 banner 区新增一个入口。复制已有的 <code>course-banner</code> 块，改 <code>href</code>、文案和 tag，并给一个新 modifier 类（如 <code>course-banner--ode</code>）：</p>
+      <pre><code>&lt;a class="course-banner course-banner--ode reveal" href="course-ode.html"&gt;
+  &lt;span class="course-banner-icon"&gt;…&lt;/span&gt;
+  &lt;span class="course-banner-body"&gt;
+    &lt;span class="cb-eyebrow"&gt;课程专区&lt;/span&gt;
+    &lt;strong&gt;常微分方程&lt;/strong&gt;
+    &lt;span class="cb-desc"&gt;课程学习笔记独立页面在线阅读。&lt;/span&gt;
+    &lt;span class="cb-tags"&gt;…&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class="cb-arrow"&gt;…&lt;/span&gt;
+&lt;/a&gt;</code></pre>
+      <p>再到 <code>assets/css/style.css</code> 给新 modifier 补一套配色（glow + icon 渐变 + badge 色 + dark 模式），参考已有的 <code>.course-banner--fss</code> / <code>.course-banner--engdraw</code> / <code>.course-banner--engtrain</code>。漏了这一步，专区就「建了但找不到」。</p>
+
       <div class="callout">
         <div class="callout-icon green">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
         <div class="callout-body">
           <strong>一句话 checklist</strong>
-          放 <code>assets/files/*.md</code> → 建 <code>course/&lt;名&gt;-notes.html</code>（带 KaTeX）→ 建 <code>course-&lt;名&gt;.html</code> 专区 → 登记 <code>posts-data.js</code> → <code>node scripts/update-stats.js</code> → 本地预览 → <code>git push</code>。
+          放 <code>assets/files/*.md</code> → 建 <code>course/&lt;名&gt;-notes.html</code>（带 KaTeX）→ 建 <code>course-&lt;名&gt;.html</code> 专区 → 登记 <code>posts-data.js</code> → <strong>在 <code>notes.html</code> 加 course-banner 入口并在 CSS 补配色</strong> → <code>node scripts/update-stats.js</code> → 本地预览 → <code>git push</code>。
         </div>
       </div>
 

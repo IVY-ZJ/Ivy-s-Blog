@@ -2927,6 +2927,11 @@ body.nav-open .scrim { opacity: 1; pointer-events: auto; }
   --cb-glow-1: rgba(255, 159, 10, 0.16);
   --cb-glow-2: rgba(255, 59, 48, 0.15);
 }
+/* ODE — Deep Violet / Math */
+.course-banner--ode {
+  --cb-glow-1: rgba(175, 82, 222, 0.16);
+  --cb-glow-2: rgba(88, 86, 214, 0.15);
+}
 .course-banner-icon {
   width: 64px;
   height: 64px;
@@ -2952,6 +2957,10 @@ body.nav-open .scrim { opacity: 1; pointer-events: auto; }
   background: linear-gradient(145deg, #ffb340, #ff9500 55%, #ff3b30);
   --cb-icon-shadow: rgba(255, 149, 0, 0.35);
 }
+.course-banner--ode .course-banner-icon {
+  background: linear-gradient(145deg, #da8cff, #af52de 55%, #5856d6);
+  --cb-icon-shadow: rgba(175, 82, 222, 0.35);
+}
 .course-banner-icon svg { width: 30px; height: 30px; }
 .course-banner-body { min-width: 0; flex: 1; }
 .cb-eyebrow {
@@ -2970,6 +2979,7 @@ body.nav-open .scrim { opacity: 1; pointer-events: auto; }
 .course-banner--fss { --cb-badge-bg: rgba(0, 102, 204, 0.11); --cb-badge-fg: #0066cc; }
 .course-banner--engdraw { --cb-badge-bg: rgba(0, 199, 190, 0.13); --cb-badge-fg: #008f89; }
 .course-banner--engtrain { --cb-badge-bg: rgba(255, 149, 0, 0.14); --cb-badge-fg: #b06a00; }
+.course-banner--ode { --cb-badge-bg: rgba(175, 82, 222, 0.13); --cb-badge-fg: #8e24aa; }
 .course-banner-body strong {
   display: block;
   margin-top: 9px;
@@ -3031,6 +3041,9 @@ body.nav-open .scrim { opacity: 1; pointer-events: auto; }
 }
 :root[data-theme="dark"] .course-banner--engtrain {
   --cb-badge-bg: rgba(255, 159, 10, 0.18); --cb-badge-fg: #ff9f0a;
+}
+:root[data-theme="dark"] .course-banner--ode {
+  --cb-badge-bg: rgba(218, 140, 255, 0.16); --cb-badge-fg: #da8cff;
 }
 
 @media (max-width: 720px) {

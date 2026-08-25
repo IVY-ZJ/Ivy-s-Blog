@@ -37,6 +37,8 @@ blog/
 ├─ about.html          # 关于我
 ├─ course-food-safety.html  # 食品安全课程资料入口
 ├─ course-engdraw.html       # 工程图学课程资料入口
+├─ course-engtrain.html      # 工程训练课程资料入口
+├─ course-ode.html           # 常微分方程课程资料入口
 ├─ course/                  # 每份课程资料一个独立网页
 │  ├─ fss-notes.html        # 食品安全 PDF 笔记阅读页（blob 解密 + #view=Fit 整页）
 │  ├─ fss-guide.html        # 复习纲要阅读页（iframe 全屏嵌入 HTML）
