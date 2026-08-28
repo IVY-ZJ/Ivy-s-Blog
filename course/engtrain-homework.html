@@ -6,13 +6,14 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; frame-src 'self' blob:; object-src 'none'; connect-src 'self'" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-  <title>电路分析核心公式速查与直觉推导 · Ivy</title>
-  <meta name="description" content="把电路分析里最容易混淆的公式，用一张图串起来。" />
+  <title>工程训练预习作业题 · 在线阅读 · Ivy</title>
+  <meta name="description" content="工程训练预习作业题：各实训模块判断题与单选题，含参考答案，可在线阅读全文。" />
 
   <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css" />
   <link rel="icon" href="../assets/img/favicon.jpg" />
 </head>
-<body class="article-page">
+<body data-fss="qa">
   <!-- Global navigation · Liquid Glass -->
   <header class="globalnav">
     <div class="globalnav-inner">
@@ -65,71 +66,38 @@
   <div class="scrim" data-menu-close></div>
 
   <main class="main">
-    <article class="article reveal" data-cat="笔记">
+    <article class="article reveal">
       <div class="article-head">
-        <a class="article-cat" href="../notes.html">学习笔记</a>
-        <h1>电路分析核心公式速查与直觉推导</h1>
+        <a class="article-cat" href="../course-engtrain.html">课程资料</a>
+        <h1>工程训练预习作业题</h1>
         <div class="article-meta">
-          <span class="author-row"><span class="mini-avatar"><img src="../assets/img/avatar.jpg" alt="Ivy" /></span> IVY</span>
-          <span>·</span><span>2026 年 7 月 28 日</span><span>·</span><span>12 分钟</span>
+          <span>判断题 + 单选题</span><span>·</span><span>含参考答案</span><span>·</span><span>Markdown · 约 75 KB</span>
         </div>
         <div class="article-toolbar">
-          <div class="article-tags" id="article-tags"></div>
+          <div class="article-actions">
+            <a class="fss-dl ghost" href="../assets/files/engtrain-homework.doc" download="工程训练预习作业题.doc">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
+              下载 Word
+            </a>
+          </div>
         </div>
       </div>
       <hr class="divider" />
 
-      <div class="prose">
-        <p>电路分析里公式不少，但真正「会考又会用」的其实就几条。这篇把它们按「怎么来的」串一遍，下次遇到题，先想物理意义，再搬公式。</p>
-
-        <h2>节点电压法</h2>
-        <p>选一个参考节点（通常接地），其余节点电压为未知量，对每个独立节点列 KCL：</p>
-        <pre><code>∑ (V_i - V_neighbor) / R = I_source</code></pre>
-        <p>本质是「流入 = 流出」。节点越多越省事，比回路法列的方程少。</p>
-
-        <h2>网孔电流法</h2>
-        <p>每个网孔设一个假想电流，沿网孔列 KVL：</p>
-        <pre><code>R_11·I_1 + R_12·I_2 = V_1
-R_21·I_1 + R_22·I_2 = V_2</code></pre>
-        <blockquote>记忆口诀：对角线是自己网孔的总电阻，非对角线是公共电阻（带负号）。</blockquote>
-
-        <h2>戴维南 / 诺顿等效</h2>
-        <p>任意线性二端网络，对外只看两件事：</p>
-        <ul>
-          <li><strong>开路电压</strong> <code>V_th</code>：把负载断开测的电压。</li>
-          <li><strong>等效电阻</strong> <code>R_th</code>：独立源置零后，从端口看进去的电阻。</li>
-        </ul>
-        <p>诺顿是戴维南的电流源版本：<code>I_n = V_th / R_th</code>，并联 <code>R_th</code>。</p>
-
-        <h3>一个常错点</h3>
-        <p>求 <code>R_th</code> 时，<strong>受控源不能简单地当导线/开路处理</strong>。要么用外加电源法，要么用 <code>V_th / I_sc</code>。我当初在这丢了不少分。</p>
-
-        <div class="callout">
-          <div class="callout-icon green">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          </div>
-          <div class="callout-body">
-            <strong>做题顺序建议</strong>
-            先判断用节点法还是网孔法（节点多 → 节点法）；含受控源时务必保留控制量；最后用戴维南简化负载部分。
-          </div>
-        </div>
-
-        <h2>小抄一张图</h2>
-        <p>把上面四条画成一张思维导图贴在书桌前，考前扫一眼就够了。完整版我放在<a href="../resources.html">资源分享</a>的网盘里。</p>
-      </div>
-
-      <hr class="divider" />
-      <p style="color:var(--label-secondary);font-size:15px;text-align:center;">
-        <a href="../posts.html">← 返回全部文章</a> · 下一篇：<a href="study-resources-pack.html">大二秋冬课程资料合集</a>
-      </p>
+      <!-- QA article: full-page markdown render -->
+      <article class="prose fss-qa-article reveal" data-fss-qa data-md="../assets/files/engtrain-homework.md"></article>
     </article>
 
     <footer class="foot">
       <p>© 2026 Ivy</p>
+      <p><a href="../course-engtrain.html">← 返回课程资料</a></p>
     </footer>
   </main>
 
   <script defer src="../assets/js/posts-data.js"></script>
   <script defer src="../assets/js/app.js"></script>
+  <script defer src="../assets/vendor/katex/katex.min.js"></script>
+  <script defer src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+  <script defer src="../assets/js/fss-viewer.js"></script>
 </body>
 </html>

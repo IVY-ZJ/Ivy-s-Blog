@@ -74,7 +74,7 @@
     </div>
 
     <div class="stat-grid reveal">
-      <div class="stat"><div class="num" id="stat-posts"><!--STAT-POSTS-->12<!--/STAT-POSTS--></div><div class="lbl">篇文章</div></div>
+      <div class="stat"><div class="num" id="stat-posts"><!--STAT-POSTS-->11<!--/STAT-POSTS--></div><div class="lbl">篇文章</div></div>
       <div class="stat"><div class="num"><!--STAT-RESOURCES-->4<!--/STAT-RESOURCES--></div><div class="lbl">份资源</div></div>
       <div class="stat"><div class="num">∞</div><div class="lbl">持续更新</div></div>
     </div>
@@ -82,26 +82,20 @@
     <article class="article article-wide reveal">
       <div class="prose prose-narrow">
         <h2>这个博客是做什么的</h2>
-        <p>简单说，它有三个用途：</p>
+        <p>说起来就三件事：</p>
         <ul>
-          <li><strong>整理学习笔记</strong> —— 课程总结、公式推导、读书方法······</li>
-          <li><strong>搜集资源</strong> —— 课件、试卷、工具软件，能直接用的东西······</li>
-          <li><strong>记录思考</strong> —— 偶尔写点随笔。</li>
+          <li>把学过的课整理成笔记。公式怎么来的、踩过哪些坑，都写下来。</li>
+          <li>攒一些直接能用的东西——课件、试卷、工具软件，免得下次再到处找。</li>
+          <li>偶尔写点随笔，主要是不吐不快的那些。</li>
         </ul>
 
         <h2>如何联系我</h2>
-        <p>有疑问、纠错或想交换链接，欢迎发邮件到 <a data-mail="moc.liamg@0002jzyvi">邮箱</a>，或在 <a href="https://github.com/IVY-ZJ" target="_blank" rel="noopener">GitHub</a> 上找我。也欢迎在文章下方留言交流。</p>
+        <p>文章里有错、想交换友链、或者单纯想问点东西，发邮件到 <a data-mail="moc.liamg@0002jzyvi">邮箱</a>，GitHub 上找我也行。文章下面留言也行，看你方便。</p>
 
         <h2>技术栈</h2>
-        <p>纯手写 <code>HTML / CSS / JavaScript</code>，无任何依赖、无构建步骤。整个站点以 Apple Liquid Glass 语言重制：</p>
-        <ul>
-          <li><strong>设计 token</strong> —— Action Blue <code>#0066cc</code> / <code>#2997ff</code>、ink <code>#1d1d1f</code>、parchment <code>#f5f5f7</code>，统一冷暖与对比。</li>
-          <li><strong>Liquid Glass 配方</strong> —— <code>saturate(180%) blur(20-30px)</code> 加半透明填充、1 px hairline 与镜面高光，让顶栏胶囊、登录卡、tags 卡片都能在多源径向渐变背景上保持通透。</li>
-          <li><strong>字体与排版</strong> —— SF Pro 系统字体栈 <code>-apple-system, "SF Pro Display", "PingFang SC", "HarmonyOS Sans SC"</code>；中文使用 -0.01 ~ -0.025 em 的负字距，正文 17 px / 1.55，标题 650 字重。</li>
-          <li><strong>导航与组件</strong> —— 浮动 Liquid Glass 胶囊顶栏、可拖动 sheet 抽屉、移动端汉堡菜单、玻璃 CTA、SVG 渐变封面。</li>
-          <li><strong>主题</strong> —— 跟随系统亮/暗，手动选择写入 <code>localStorage['Ivy-theme']</code>，CSS 变量与 <code>:root[data-theme]</code> 双轨联动。</li>
-          <li><strong>可托管性</strong> —— 全静态、可放在 GitHub Pages / Vercel / Netlify；不引入 Node 构建、不依赖第三方 CDN；通过 <code>&lt;meta&gt;</code> CSP、蜜罐、登录态限流、frame-buster 做了轻量加固。</li>
-        </ul>
+        <p>整个站点手写的 HTML / CSS / JavaScript，没用任何框架、没构建步骤。托管在 GitHub Pages 上就能跑。</p>
+        <p>视觉是按 Apple 的 Liquid Glass 那一套来的——半透明 + 1px 描边 + 镜面高光，亮暗主题都跟系统走，想手动切也行（写进 localStorage）。字体用的是 SF Pro 系，中文配 PingFang / HarmonyOS Sans。</p>
+        <p>安全性没做太重：登录态限流、CSP、蜜罐、frame-buster——挡挡脚本小子和爬虫够了，真正的密码学不是我的活。</p>
       </div>
     </article>
 
